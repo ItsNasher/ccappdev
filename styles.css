@@ -36,7 +36,7 @@ nav {
     gap: 2px;
     background-color: #212430;
 }
-.logo{
+.header .logo{
     max-width: 45px;
 }
 .headerlinks{
@@ -49,6 +49,12 @@ nav {
     position: relative;
     padding-bottom: 0.75rem;
     color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+.links a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* grey */
 }
 .searchbar {
     flex: 1;
@@ -60,7 +66,8 @@ nav {
     max-width: 400px;
 }
 .input {
-    font: 'Inter';
+    font-family: 'Inter';
+    font-size: 16px;
     width: 100%;
     height: 40px;
     line-height: 28px;
@@ -72,9 +79,138 @@ nav {
     outline: none;
     background-color: #212430;
     color: #fff;
-    transition: .3s ease;
 }
 /* removes x button on searchbar */
 .input[type="search"]::-webkit-search-cancel-button {
     display: none;
+}
+
+.firstblock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+.container{ /*container of the image and the text */
+    display: flex;
+    align-items: center;
+}
+.left img{
+    max-width: 50px;
+    margin-right: 10px;
+    height: 50px;
+}
+.left {
+    font-family: 'Inter';
+    color: #5271ff;
+    padding: 2rem;
+    padding-left: 4rem;
+    text-wrap: wrap;
+    flex: 1;
+}
+.left .text{
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 65px;
+    vertical-align: middle;
+    flex: 1;
+}
+.left .paragraph{
+    color: #fff;
+    font-weight: bold;
+    font-size: 63px;
+}
+
+.vertical-line {
+    width: 2px; 
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 70%;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+.credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; 
+    font-size: 20px;
+    width: 100%;
+    max-width: 335px;
+}
+.credentials input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 1rem;
+    border: 1px solid transparent;
+    border-color: #a6a6a6;
+    border-radius: 8px;
+    outline: none;
+    background-color: #212430;
+    color: #fff;
+}
+.credentials button{
+    width: 100%;
+    font-family: 'Inter';
+    border-radius: 25px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+#signin, #register {
+    outline: none;
+}
+
+#signin {
+    position: relative;
+    transition: all 0.2s ease;
+    background-color:#fff;
+}
+#signin:hover {
+    transform: scale(1.02);
+}
+#signin:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 15px #0000004d;
+}
+#register {
+    position: relative;
+    transition: all 0.2s ease;
+    background-color: #5271ff;
+    color: #fff;
+}
+#register:hover {
+    transform: scale(1.02);
+}
+#register:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 15px #0000004d;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0; 
+    width: 100%;
+    height: 50px; 
+    background-color: #4056b9;
+    color: white;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
