@@ -16,7 +16,7 @@
 
             <ul class = "headerlinks">
                 <li class = "links"><a href="#"> Chat </a></li>
-                <li class = "links"><a href="../index.html"> Home </a></li>
+                <li class = "links"><a href="feed.html"> Home </a></li>
             </ul>
         </nav>
 
@@ -26,7 +26,9 @@
 
             <div class = "sidebar">
                 <button class = "sidebar-button" id = "profile-button"> Profile </button>
-                <button class = "sidebar-button" id = "logout-button"> Log Out </button>
+                <a href = "../index.html">
+                    <button class = "sidebar-button" id = "logout-button"> Log Out </button>
+                </a>
             </div>
         
             <div class = "content">
@@ -49,20 +51,22 @@
                     <button clas = "links" id = "create-post"> Create Post </button>
                 </div>
                 
-                <div class = "posts">
-                    <div class = "post-header">
-                        <div class = "tags">
-                            <span class = "tag">TAG1</span>
-                            <span class = "tag">TAG2</span>
+                <a href = "post.html">
+                    <div class = "posts">
+                        <div class = "post-header">
+                            <div class = "tags">
+                                <span class = "tag">TAG1</span>
+                                <span class = "tag">TAG2</span>
+                            </div>
+                            <span class = "date">date posted</span>
                         </div>
-                        <span class = "date">date posted</span>
+                    
+                        <div class="post-content">
+                            <h3 class="post-title">title of post</h3>
+                            <p class="post-text">content</p>
+                        </div>
                     </div>
-                
-                    <div class="post-content">
-                        <h3 class="post-title">title of post</h3>
-                        <p class="post-text">content</p>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </body>
