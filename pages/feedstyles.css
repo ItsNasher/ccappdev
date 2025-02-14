@@ -23,10 +23,16 @@ body{
 }
 
 .header{
-    padding: 9px;
-    padding-left: 24px;
-    padding-right: 24px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #212430;
+    padding: 10px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    border-bottom: 0.5px solid white;
 }
 nav {
     max-width: 1300;
@@ -132,9 +138,164 @@ nav {
     color: white;
     font-size: 16px;
 }
+.sidebar-button{
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 12px 24px;
+    margin: 12px;
+    cursor: pointer;
+}
+
+#home-button{
+    background-color: #2c2c44; 
+}
+
+#home-button:hover{
+    background-color: gray; 
+}
+
+#tagfilter-button{
+    background-color: #2c2c44; 
+}
+
+#tagfilter-button:hover{
+    background-color: gray; 
+}
 
 .feed {
     font-family: 'Inter';
     color: white;
-    margin-left: 22%;
+    margin-left: 24%;
+    padding-top: 1rem;
+    width: 100%;
+}
+#createpost a{
+    color: white;
+    font-size: 14px;
+    border-radius: 32px;
+    margin: 12px;
+    cursor: pointer;
+    padding: 8px 12px;
+    display: inline-block;
+    border: 1px solid #a6a6a6;
+    text-decoration: none;
+}
+#createpost a:visited{
+    color: #fff;
+}
+#createpost a:active{
+    transform: scale(0.97);
+}
+
+.post {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.post:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #ffffff;
+}
+.poster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.poster-pfp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.poster-username {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.postcontent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 12px;
+}
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+}
+.tags {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.tags li {
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+.date-posted {
+    color: #a6a6a6;
+    font-size: 12px;
+    text-align: right;
+}
+.post-body {
+    margin-top: 12px;
+    color: white;
+    font-size: 14px;
+}
+.post-body {
+    margin-top: 12px;
+    color: white;
+    font-size: 14px;
+    border: 0.5px solid #a6a6a6;
+    padding: 16px;
+    border-radius: 8px;
+    width: 100%;
+    word-wrap: break-word;
+}
+.reaction {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+.reaction button {
+    background-color: #2c2c44;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.reaction button:hover {
+    background-color: gray;
+}
+.post-separator {
+    width: 97%;
+    height: 0.5px;
+    background-color: #a6a6a6;
+    margin: 10px 0;
+}
+
+/* Literally just for the YT video embed */
+.mediacontainer {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: 10px;
+}
+.mediacontainer iframe {
+    width: 60%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
 }
