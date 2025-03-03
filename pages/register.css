@@ -140,6 +140,13 @@ nav {
     gap: 1.5rem;
     flex: 1;
 }
+.titleregister{
+    font-size: 23px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    
+}
 .credentials {
     display: flex;
     flex-direction: column;
