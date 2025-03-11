@@ -85,6 +85,24 @@ nav {
     width: 22%;
     height: 100vh;
     border-right: 0.5px solid white;
+    padding-top: 1rem;
+    position: fixed;
+}
+
+.back {
+    background-color: #2c2c44;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 12px;
+    padding: 12px 24px;
+}
+.back a{
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }
 
 .sidebar-button{
@@ -101,7 +119,27 @@ nav {
 }
 
 #logout-button{
-    background-color: #ce5241; 
+    background-color: #ce5241;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 12px;
+    cursor: pointer;
+    display: inline-block;
+    width: fit-content;
+    margin-top: 22.5rem;
+}
+#logout-button a{
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+.back:hover, 
+#profile-button:hover{
+    background-color: #2f2f3f;
+}
+#logout-button:hover {
+    background-color: #b44438;
 }
 
 .content {  
@@ -109,6 +147,8 @@ nav {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin-left: 24%;
+    padding-top: 3rem;
 }
 
 .profile-header {

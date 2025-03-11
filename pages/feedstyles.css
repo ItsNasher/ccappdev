@@ -119,6 +119,7 @@ nav {
     height: 100vh;
     border-right: 0.5px solid #fff;
     position: fixed;
+    padding-top: 4rem;
 }
 .profile {
     display: flex;
@@ -152,7 +153,7 @@ nav {
 }
 
 #home-button:hover{
-    background-color: gray; 
+    background-color: #2f2f3f; 
 }
 
 #tagfilter-button{
@@ -160,7 +161,7 @@ nav {
 }
 
 #tagfilter-button:hover{
-    background-color: gray; 
+    background-color: #2f2f3f; 
 }
 
 .feed {
