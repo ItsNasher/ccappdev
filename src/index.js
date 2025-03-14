@@ -38,8 +38,25 @@ app.post("/register", async (req, res) => {
         password: req.body.password
     }
 
-    const userdata = await collection.insertMany(data);
-    console.log(userdata);
+    //check if the username already exists in hte database
+    const existingUser = await collection.findOne({name: data.name});
+
+        //check if the email already exists in hte database
+        const existingEmail = await collection.findOne({email: data.email});
+
+    if(existingUser){
+        res.send("User already exists. Please choose a different username.");
+    } 
+    
+    else if(existingEmail){
+        res.send("Account with email already exists.");
+    } 
+    
+    else {
+        const userdata = await collection.insertOne(data);
+        console.log(userdata);
+    }
+
 })
 
 const port = 3000;

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb://localhost:27017/");
+const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
 
 
 //checking connection
@@ -13,7 +13,11 @@ connect.then(() => {
 //creating a schema
 
 const LoginSchema  = new mongoose.Schema({
-    namme: {
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true
     },
