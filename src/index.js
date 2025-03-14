@@ -1,5 +1,5 @@
 const express = require('express');
-const pasth = require("path");
+const path = require("path");
 const bcrypt = require("bcrypt");
 const collection = require("./config")
 
@@ -13,7 +13,9 @@ app.use(express.urlencoded({extended: false}));
 //EJS as view engine
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'))
+app.set('views', path.join(__dirname, '..', 'views')); 
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get("/", (req, res) => {
     res.render("login");
@@ -21,6 +23,10 @@ app.get("/", (req, res) => {
 
 app.get("/register", (req, res) => {
     res.render("register");
+});
+
+app.get("/home", (req, res) => { // the feed
+    res.render("home");
 });
 
 //Register User

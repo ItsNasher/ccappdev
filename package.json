@@ -1,8 +1,19 @@
 {
+  "name": "file-exchange-system",
+  "version": "1.0.0",
+  "description": "A simple file exchange system using Express and MongoDB",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "mongoose": "^8.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

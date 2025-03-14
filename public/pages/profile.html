@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Profile</title>
+        <link rel = "icon" href = "../images/logo.png">
+        <link rel = "stylesheet" href = "profilestyles.css">
+    </head>
+
+    <body>
+
+        <nav class = "header">
+            <div class = "logo">
+                <a href = "feed.html">
+                    <img src = "../images/logo.png">
+                </a>
+            </div>
+
+            <ul class = "headerlinks">
+                <li class = "links"><a href="#"> Chat </a></li>
+                <li class = "links"><a href="feed.html"> Home </a></li>
+            </ul>
+        </nav>
+
+        <hr style = "border: 0; height: 1px; background: white;">
+
+        <div class = "mainbody">
+
+            <div class = "sidebar">
+                <button class="back"><a href="feed.html">⬅ Back</a></button>
+                <button class = "sidebar-button" id = "profile-button"> Profile </button>
+                <button class = "sidebar-button" id = "createpost" onclick="goToCreatePost()">Create Post</button>
+                <button class = "sidebar-button" id = "logout-button"><a href = "../index.html">Log Out</a></button>
+            </div>
+        
+            <div class = "content">
+                <div class = "profile-header">
+
+                    <div class = "profile-picture">
+                        <img src="../images/default-profile.png">
+                    </div>
+
+                    <div>
+                        <div class = "username"> Username </div>
+                        <div class = "bio"> Insert bio here </div>
+                    </div>
+
+                </div>  
+
+                <hr style = "border: 0; height: 1px; background: gray;">
+
+                <div> 
+                    <button clas = "links" id = "create-post"> Create Post </button>
+                </div>
+                
+                <a href = "post.html">
+                    <div class = "posts">
+                        <div class = "post-header">
+                            <div class = "tags">
+                                <span class = "tag">TAG1</span>
+                                <span class = "tag">TAG2</span>
+                            </div>
+                            <span class = "date">date posted</span>
+                        </div>
+                    
+                        <div class="post-content">
+                            <h3 class="post-title">title of post</h3>
+                            <p class="post-text">content</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <script src="links.js"></script>
+    </body>
+</html>
