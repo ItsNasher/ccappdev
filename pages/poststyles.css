@@ -137,7 +137,7 @@ nav {
 }
 
 .return:hover{
-    background-color: gray;
+    background-color: #2f2f3f;;
 }
 
 .profile {
@@ -174,7 +174,7 @@ nav {
 }
 
 #home-button:hover{
-    background-color: gray; 
+    background-color: #2f2f3f;
 }
 
 #tagfilter-button{
@@ -182,7 +182,7 @@ nav {
 }
 
 #tagfilter-button:hover{
-    background-color: gray; 
+    background-color: #2f2f3f; 
 }
 
 .profilepost { /* Profile part on the post*/
