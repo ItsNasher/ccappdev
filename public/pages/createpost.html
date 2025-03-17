@@ -2,7 +2,7 @@
     <head>
         <title>Create Post</title>
         <link rel = "icon" href = "../images/logo.png">
-        <link rel = "stylesheet" href = "createpost.css">
+        <link rel = "stylesheet" href = "../createpost.css">
     </head>
 
     <body>
@@ -29,6 +29,27 @@
                 <button class = "sidebar-button" id = "createpost">Create Post</button>
                 <button class = "sidebar-button" id = "logout-button"><a href = "../index.html">Log Out</a></button>
             </div>
-            <script src="links.js"></script>
+            <div class = "createbody">
+                <p class="headertitle">Create Post</p>
+                <p class="tags">Add tags</p>
+                <nav class = "mediatype">
+                    <div class="mediatype-tabs">
+                        <div class="tab active" data-type="text">Text</div>
+                        <div class="tab" data-type="image">Image</div>
+                        <div class="tab" data-type="video">Video/Link</div>
+                    </div>
+                </nav>
+                <div class="inputbox">
+                    <textarea placeholder="Title..." type="text" id="title"></textarea>
+                    <div class="subtext">
+                        <div class="text">Title</div>
+                        <span id="char-counter">0/400</span> 
+                    </div>
+                </div>
+                <div id="content-box">
+                    <textarea placeholder="Write something..." rows="5"></textarea>
+                </div>
+            </div>
+            <script src="../../views/links.js"></script>
     </body>
 </html>
