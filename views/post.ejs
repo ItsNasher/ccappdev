@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Posts</title>
+        <link rel="icon" href="../images/logo.png">
+        <link rel="stylesheet" href="poststyles.css">
+    </head>
+
+    <body>
+        <nav class = "header">
+            <div class = "logo">
+                <a href = "/">
+                    <img src = "../images/logo.png">
+                </a>
+            </div>
+            <div class = "searchbar">
+                <input placeholder="Search..." type = "search" class = "input">
+            </div>
+            <ul class = "headerlinks">
+                <li class = "links"><a href = "#">Chat</a></li>
+                <li class = "links"><a href = "/">Log Out</a></li>
+            </ul>
+        </nav>
+
+        <hr style="border: 0; height: 1px; background: white;">
+
+        <div class="mainbody">
+
+            <div class="sidebar">
+                <div class="profile">
+                    <img src="../images/default-profile.png" alt="Profile Picture">
+                    <span class="username">Username</span>
+                </div>
+
+                <button class = "sidebar-button" id = "home-button"> Home </button>
+                <button class = "sidebar-button" id = "tagfilter-button"> Tag Filter </button>
+            </div>
+
+            <div class = "content">
+
+                <a href="/home" class="return">⬅ Return</a>
+
+                <div class = "profilepost" id = "poster">
+                    <img src="../images/default-profile.png" alt="Profile Picture">
+                    <span class="username">Poster</span>
+                </div>
+
+                <div class = "post">
+                    <div class = "post-header">
+                        <div class = "tags">
+                            <span class = "tag">TAG1</span>
+                            <span class = "tag">TAG2</span>
+                        </div>
+                        <span class = "date">date posted</span>
+                    </div>
+                
+                    <div class="post-content">
+                        <h3 class="post-title">title of post</h3>
+                        <p class="post-text">content</p>
+                    </div>
+                </div>
+
+                <div class = "reaction">
+                    <button> 🔼 </button>
+                    <button> 🔽 </button>
+                    <button> 💬 </button>
+                </div>
+
+                <div class = "comment_section">
+                    <div class = "commenter">
+                        <img src="../images/default-profile.png" alt="Profile Picture">
+                        <div class="commenter">Commenter_1</div>
+                    </div>
+
+                    <div class = "comment">
+                        <div class="commenttext">Comment!</div>
+                        <div class="commentdate">DD/MM/YYYY</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
