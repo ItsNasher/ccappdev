@@ -41,15 +41,14 @@
             <div class="right">
                 <div class="credentials">
                     <p class="titleregister">Register</p>
-                    <form action="/register" method="POST">
+                    <form action="/register" method="POST" class="registerform">
                         <input placeholder="Username..." type="text" name="username" required>
                         <input placeholder="Email..." type="email" name="email" required>
                         <input placeholder="Password..." type="password" name="password" required>
                         <input placeholder="Repeat password..." type="password" name="confirmPassword" required>
-                        <button type="submit">Register</button>
-                        <a href="/">Back to login</a>
+                        <button type="submit" id="signin">Register</button>
+                        <a href="/" id="register">Back to login</a>
                     </form>
-                    
                 </div>
             </div>
         </div>
