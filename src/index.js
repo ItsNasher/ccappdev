@@ -89,7 +89,7 @@ app.post("/login", async (req, res) => {
             return res.json({ error: "Wrong Password!" });
         }
 
-        res.json({ success: "Login successful! Redirecting..." });
+        res.json({ success: "Login successful! Welcome to CHAT!" });
     } catch (err) {
         console.error(err);
         res.json({ error: "An error occurred. Please try again!" });
