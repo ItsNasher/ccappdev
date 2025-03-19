@@ -147,7 +147,8 @@ nav {
     width: 100%;
     
 }
-.credentials {
+.credentials,
+.registerform {
     display: flex;
     flex-direction: column;
     gap: 25px; 
@@ -155,7 +156,7 @@ nav {
     width: 100%;
     max-width: 335px;
 }
-.credentials input {
+.registerform input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -170,7 +171,7 @@ nav {
     background-color: #212430;
     color: #fff;
 }
-.credentials button{
+.registerform button{
     width: 100%;
     font-family: 'Inter';
     border-radius: 25px;
