@@ -29,6 +29,22 @@ app.get("/home", (req, res) => { // the feed
     res.render("home");
 });
 
+app.get("/aboutus", (req, res) => {
+    res.render("aboutus");
+});
+
+app.get("/createpost", (req, res) => {
+    res.render("createpost");
+});
+
+app.get("/post", (req, res) => {
+    res.render("post");
+});
+
+app.get("/profile", (req, res) => {
+    res.render("profile");
+});
+
 //Register User
 app.post("/register", async (req, res) => {
 

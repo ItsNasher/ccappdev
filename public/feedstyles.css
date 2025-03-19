@@ -69,18 +69,18 @@ nav {
     border-radius: 24px;
     font-size: 14px;
 }
-.links a[href="../index.html"] {
+.links a[href="/"] {
     background-color: #5271ff;
     border: 2px solid #5271ff;
     border-radius: 5px;
     padding: 6px 12px;
     font-weight: 500;
 }
-.links a[href="../index.html"]:hover {
+.links a[href="/"]:hover {
     background-color: #4056d6;
     border-color: #4056d6;
 }
-.links a[href="../index.html"]:active {
+.links a[href="/"]:active {
     transform: scale(0.97);
     box-shadow: 0 5px 15px #0000004d;
 }
