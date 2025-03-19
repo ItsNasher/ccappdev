@@ -148,7 +148,7 @@ nav {
     
 }
 .credentials,
-.registerform {
+#registerform {
     display: flex;
     flex-direction: column;
     gap: 25px; 
@@ -156,7 +156,7 @@ nav {
     width: 100%;
     max-width: 335px;
 }
-.registerform input {
+#registerform input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -171,13 +171,55 @@ nav {
     background-color: #212430;
     color: #fff;
 }
-.registerform button{
+#registerform button{
     width: 100%;
     font-family: 'Inter';
     border-radius: 25px;
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#toggle {
+    background: none;
+    border: none;
+    color: #5271ff;
+    font-family: 'Inter';
+    font-size: 11px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-top: -18px;
+    margin-bottom: -11px;
+    align-self: flex-start;
+    display: block; /* Ensures it takes only necessary width */
+    width: fit-content; /* Ensures it only takes the size of the text */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#toggle:hover {
+    color: #4056b9;
+}
+
+#repeat {
+    background: none;
+    border: none;
+    font-family: 'Inter';
+    font-size: 11px;
+    cursor: default;
+    padding: 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-top: -18px;
+    margin-bottom: -11px;
+    align-self: flex-start;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(221, 8, 8);
 }
 
 #signin, #register {
@@ -188,6 +230,18 @@ nav {
     position: relative;
     transition: all 0.2s ease;
     background-color:#fff;
+}
+#signin:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#signin:disabled:hover {
+    transform: none; 
+    background-color: #ccc;
 }
 #signin:hover {
     transform: scale(1.02);

@@ -41,12 +41,14 @@
             <div class="right">
                 <div class="credentials">
                     <p class="titleregister">Register</p>
-                    <form action="/register" method="POST" class="registerform">
-                        <input placeholder="Username..." type="text" name="username" required>
-                        <input placeholder="Email..." type="email" name="email" required>
-                        <input placeholder="Password..." type="password" name="password" required>
-                        <input placeholder="Repeat password..." type="password" name="confirmPassword" required>
-                        <button type="submit" id="signin">Register</button>
+                    <form id="registerForm">
+                        <input placeholder="Username..." id="username" type="text" name="username" required>
+                        <input placeholder="Email..." id="email" type="email" name="email" required>
+                        <input placeholder="Password..." id="password" type="password" name="password" required>
+                        <button type="button" id="toggle">Show Password</button>
+                        <input placeholder="Repeat password..." id="confirm" type="password" name="confirmPassword" required>
+                        <span id="repeat" style="display: none;">Passwords do not match!</span>
+                        <button type="submit" id="signin" disabled>Register</button>
                         <a href="/" id="register">Back to login</a>
                     </form>
                 </div>
@@ -57,5 +59,6 @@
                 CCAPDEV Machine Project
             </div>
         </div>
+        <script src="register.js"></script>
     </body>
 </html>

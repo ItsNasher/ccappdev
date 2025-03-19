@@ -1,7 +1,7 @@
 {
-  "name": "file-exchange-system",
+  "name": "ccapdev",
   "version": "1.0.0",
-  "description": "A simple file exchange system using Express and MongoDB",
+  "description": "ccapdev project",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",

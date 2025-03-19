@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb+srv://yosh:DLSU1234!@loginpage.w8oya.mongodb.net/LogInPage");
+const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
 
 
 //checking connection
@@ -31,4 +31,3 @@ const LoginSchema  = new mongoose.Schema({
 const collection = new mongoose.model("users", LoginSchema);
 
 module.exports = collection;
-

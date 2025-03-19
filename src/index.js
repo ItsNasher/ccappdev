@@ -45,61 +45,54 @@ app.get("/profile", (req, res) => {
     res.render("profile");
 });
 
-//Register User
+//register User
 app.post("/register", async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
 
-    const data = {
-        name: req.body.username,
-        email: req.body.email,
-        password: req.body.password
+        if (!username || !email || !password) {
+            return res.json({ error: "All fields are required!" });
+        }
+
+        const existingUser = await collection.findOne({ name: username });
+        if (existingUser) {
+            return res.json({ error: "User already exists!" });
+        }
+
+        const existingEmail = await collection.findOne({ email });
+        if (existingEmail) {
+            return res.json({ error: "Email is already registered!" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await collection.create({ name: username, email, password: hashedPassword });
+
+        res.json({ success: "Registration successful! Redirecting to login..." });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: "Something went wrong. Try again!" });
     }
+});
 
-    //check if the username already exists in hte database
-    const existingUser = await collection.findOne({name: data.name});
-
-        //check if the email already exists in hte database
-        const existingEmail = await collection.findOne({email: data.email});
-
-    if(existingUser){
-        res.send("User already exists. Please choose a different username.");
-    } 
-    
-    else if(existingEmail){
-        res.send("Account with email already exists.");
-    } 
-    
-    else {
-        //hasing the password
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-        
-        data.password = hashedPassword;
-        
-        const userdata = await collection.create(data);
-        console.log(userdata);
-    }
-
-})
-
-//Log in user
+// login
 app.post("/login", async (req, res) => {
     try {
         const check = await collection.findOne({ name: req.body.username });
+
         if (!check) {
-            return res.send("Username cannot be found.")
+            return res.json({ error: "Username not found!" });
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
 
         if (!isPasswordMatch) {
-            return res.send("Wrong Password");
+            return res.json({ error: "Wrong Password!" });
         }
-        else {
-            res.render("home");
-        }
-    }
-    catch {
-        res.send("Wrong Details");
+
+        res.json({ success: "Login successful! Redirecting..." });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: "An error occurred. Please try again!" });
     }
 });
 
