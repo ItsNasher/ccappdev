@@ -1,7 +1,7 @@
 ### To Do List
-## Landing Page
-- Do the rest of the Body
-- (the syntax for the search bar is in the code, just commented out)
+## Login Register
+- Sessions (so that log out works, and the site remembers who is logged on)
 
-## Main Forum
-- Do the whole thing
+## Create Post
+- Finish the EJS and CSS for it
+- (not sure if i will need profile for this or not)
