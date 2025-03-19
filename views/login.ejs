@@ -38,10 +38,12 @@
 
             <div class="right">
                 <div class="credentials">
-                    <input placeholder="Username..." type="text" id="username">
-                    <input placeholder="Password..." type="password" id="password">
-                    <button type="submit" id="signin">Sign in</button>
-                    <a href="register" id="register">Register</a>
+                    <form action="/login" method="POST">
+                        <input placeholder="Username..." type="text" name="username" required>
+                        <input placeholder="Password..." type="password" name="password" required>
+                        <button type="submit">Sign in</button>
+                        <a href="/register">Register</a>
+                    </form>                    
                 </div>
             </div>
         </div>
