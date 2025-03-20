@@ -29,9 +29,9 @@
                 <button class = "sidebar-button" id = "createpost">Create Post</button>
                 <button class = "sidebar-button" id = "logout-button"><a href = "../index.html">Log Out</a></button>
             </div>
-            <div class = "createbody">
+            <form class = "createbody">
                 <p class="headertitle">Create Post</p>
-                <p class="tags">Add tags</p>
+                <button type="button" class="tags">Add tags</button>
                 <nav class = "mediatype">
                     <div class="mediatype-tabs">
                         <div class="tab active" data-type="text">Text</div>
@@ -39,17 +39,18 @@
                         <div class="tab" data-type="video">Video/Link</div>
                     </div>
                 </nav>
-                <div class="inputbox">
-                    <textarea placeholder="Title..." type="text" id="title"></textarea>
-                    <div class="subtext">
-                        <div class="text">Title</div>
-                        <span id="char-counter">0/400</span> 
+                    <div class="inputbox">
+                        <textarea placeholder="Title..." type="text" id="title" required></textarea>
+                        <div class="subtext">
+                            <div class="text">Title</div>
+                            <span id="char-counter">0/400</span> 
+                        </div>
                     </div>
-                </div>
-                <div id="content-box">
-                    <textarea placeholder="Write something..." rows="5"></textarea>
-                </div>
-            </div>
+                    <div id="content-box">
+                        <textarea placeholder="Write something..." rows="5"></textarea>
+                    </div>
+                    <button type="submit" id="create-post" disabled>Post</button>
+                </form>
             <script src="../links.js"></script>
     </body>
 </html>
