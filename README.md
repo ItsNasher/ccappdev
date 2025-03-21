@@ -1,3 +1,10 @@
+### Guide 
+1. go to `config.js` and change connection to your mongodb connection.
+2. find src and run `node index.js` on cmd
+3. Register and Login
+4. Create Post = click create post button.
+5. Comment = manual input on db for now
+
 ### To Do List
  ## Landing Page
  - Do the rest of the Body
