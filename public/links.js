@@ -243,3 +243,62 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("tags").value = JSON.stringify(selectedTags);
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form.createbody"); // Select the form by class
+    const postButton = document.getElementById("create-post");
+    const contentTypeInput = document.getElementById("content_type"); // Stores the current tab type
+
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            const contentType = contentTypeInput.value;
+
+            // Validate Title
+            const titleInput = document.getElementById("title");
+            if (!titleInput.value.trim()) {
+                isValid = false;
+                alert("Title is required.");
+            }
+
+            // Validate Text Input
+            if (contentType === "text") {
+                const textInput = document.getElementById("content");
+                if (!textInput.value.trim()) {
+                    isValid = false;
+                    alert("Text content is required.");
+                }
+            }
+
+            // Validate Image Upload
+            if (contentType === "image") {
+                const imageUpload = document.querySelector("input[type='file']");
+                if (!imageUpload || !imageUpload.files.length) {
+                    isValid = false;
+                    alert("Please upload an image.");
+                }
+            }
+
+            // Validate Video Input
+            if (contentType === "video") {
+                const videoInput = document.getElementById("videoUrlInput");
+                if (!videoInput || !videoInput.value.trim()) {
+                    isValid = false;
+                    alert("Please provide a video link.");
+                }
+            }
+
+            // If validation fails, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Enable submit button only if required fields are filled
+        form.addEventListener("input", function () {
+            const titleFilled = document.getElementById("title").value.trim() !== "";
+            const contentFilled = document.getElementById("content").value.trim() !== "";
+            postButton.disabled = !(titleFilled && contentFilled);
+        });
+    }
+});
