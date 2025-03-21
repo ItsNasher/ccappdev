@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
+const connect = mongoose.connect("mongodb+srv://yosh:DLSU1234!@loginpage.w8oya.mongodb.net/");
 
 
 //checking connection
@@ -10,7 +10,7 @@ connect.then(() => {
     console.log("Database cannot be connected.");
 })
 
-//creating a schema
+//creating the schemas
 
 const LoginSchema  = new mongoose.Schema({
     name: {
@@ -53,6 +53,29 @@ const PostSchema = new mongoose.Schema({
     } // stores text, file path, or URL
 });
 
+//schema for comments (no user)
+const CommentSchema = new mongoose.Schema({
+    postId: {
+        type: Number,
+        ref: 'posts',  //references to existing posts
+        required: true
+    },
+    username: {
+        type: String,
+        required: true,
+        default: "RandomUsername"
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    date_posted: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+
 // schema for the tags
 const TagSchema = new mongoose.Schema({
     name: { 
@@ -66,6 +89,7 @@ const TagSchema = new mongoose.Schema({
 //collection port
 const collection = new mongoose.model("users", LoginSchema);
 const postcollection = mongoose.model("posts", PostSchema);
+const commentcollection = mongoose.model("comments", CommentSchema)
 const tag = mongoose.model("tags", TagSchema);
 
-module.exports = { collection, postcollection, tag, mongoose};
+module.exports = { collection, postcollection, commentcollection, tag, mongoose};

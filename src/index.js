@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require("path");
 const bcrypt = require("bcrypt");
-const { collection, postcollection, tag, mongoose} = require("./config"); // only works this way 
+const { collection, commentcollection, postcollection, tag, mongoose} = require("./config"); // only works this way 
 const upload = require("./fileupload"); 
 
 const app = express();
@@ -48,8 +48,25 @@ app.get("/createpost", (req, res) => {
     res.render("createpost");
 });
 
-app.get("/post", (req, res) => {
-    res.render("post");
+app.get("/post/:postId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+
+        //get post details
+        const post = await postcollection.findOne({ postId });
+
+        if (!post) {
+            return res.json({ error: "Post not found!" })
+        }
+
+        //get comments related to the post
+        const comments = await commentcollection.find({ postId });
+
+        res.render("post", { post, comments }); 
+
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 app.get("/profile", (req, res) => {
@@ -150,6 +167,8 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
         res.json({ error: "Failed to create post!" });
     }
 });
+
+//create comment 
 
 const port = 3000;
 app.listen(port, () => {

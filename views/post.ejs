@@ -2,7 +2,7 @@
     <head>
         <title>Posts</title>
         <link rel="icon" href="../images/logo.png">
-        <link rel="stylesheet" href="poststyles.css">
+        <link rel="stylesheet" href="/poststyles.css">
     </head>
 
     <body>
@@ -44,18 +44,28 @@
                     <span class="username">Poster</span>
                 </div>
 
-                <div class = "post">
-                    <div class = "post-header">
-                        <div class = "tags">
-                            <span class = "tag">TAG1</span>
-                            <span class = "tag">TAG2</span>
-                        </div>
-                        <span class = "date">date posted</span>
+                <div class="post">
+                    <div class="post-header">
+                        <ul class="tags">
+                            <li style="background-color: #5271ff;">coding</li>
+                            <li style="background-color: #ff6347;">webdev</li>
+                            <li style="background-color: #32cd32;">informative</li>
+                        </ul>
                     </div>
-                
+                    <div class="below-header">
+                        <h2 class="post-title"><%= post.title %></h2> 
+                        <div class="date-posted"><%= post.date_posted.toDateString() %></div>
+                    </div>
                     <div class="post-content">
-                        <h3 class="post-title">title of post</h3>
-                        <p class="post-text">content</p>
+                        <% if (post.content_type === "text") { %>
+                            <p><%= post.content %></p>
+                        <% } else if (post.content_type === "image") { %>
+                            <img src="/uploads/<%= post.content %>" alt="Post Image">
+                        <% } else if (post.content_type === "video") { %>
+                            <iframe width="560" height="315" src="<%= post.content %>" frameborder="0" allowfullscreen></iframe>
+                        <% } else if (post.content_type === "link") { %>
+                            <a href="<%= post.content %>" target="_blank"><%= post.content %></a>
+                        <% } %>
                     </div>
                 </div>
 
@@ -65,18 +75,23 @@
                     <button> 💬 </button>
                 </div>
 
-                <div class = "comment_section">
-                    <div class = "commenter">
-                        <img src="../images/default-profile.png" alt="Profile Picture">
-                        <div class="commenter">Commenter_1</div>
-                    </div>
-
-                    <div class = "comment">
-                        <div class="commenttext">Comment!</div>
-                        <div class="commentdate">DD/MM/YYYY</div>
-                    </div>
-
+                <div class="comment_section">
+                    <% if (comments.length === 0) { %>
+                        <p>No comments yet.</p>
+                    <% } else { %>
+                        <% comments.forEach(comment => { %>
+                            <div class="comment">
+                                <div class="commenter">
+                                    <img src="../images/default-profile.png" alt="Profile Picture">
+                                    <div class="commenter"><%= comment.username %></div>
+                                </div>
+                                <div class="comment-text"><%= comment.text %></div>
+                                <div class="comment-date"><%= comment.date_posted.toDateString() %></div>
+                            </div>
+                        <% }); %>
+                    <% } %>
                 </div>
+                
 
             </div>
         </div>
