@@ -223,25 +223,17 @@ nav {
 }
 
 .tags {
-    padding-bottom: 0.75rem;
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 8px 12px;
-    border-radius: 10px;
-    display: inline-block;
-    border: 1px solid transparent;
-    border-radius: 24px;
-    border-color: #a6a6a6;
-    font-size: 15px;
-    margin-bottom: 1px;
-    cursor: pointer;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
-.tags:hover {
-    background-color: rgba(255, 128, 128, 0.05);
-}
-.tags:active {
-    transform: scale(0.94);
-    transition: transform 0.2s ease-in-out;
+.tags li {
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
 }
 
 .date {
