@@ -235,10 +235,26 @@ nav {
     border-radius: 20px;
     font-size: 14px;
 }
+.below-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+    gap: 5px;
+}
+.post-title{
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 550;
+}
 .date-posted {
     color: #a6a6a6;
     font-size: 12px;
     text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: flex-end; 
 }
 .post-body {
     margin-top: 12px;
@@ -248,12 +264,28 @@ nav {
 .post-body {
     margin-top: 12px;
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     border: 0.5px solid #a6a6a6;
     padding: 16px;
     border-radius: 8px;
     width: 100%;
     word-wrap: break-word;
+}
+.post-body p {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #dddddd;
+}
+.post-body img {
+    max-width: 500px;
+    width: auto;     
+    height: auto;   
+    display: block;    
+    margin: 10px auto;
+    border-radius: 8px;
 }
 .reaction {
     display: flex;
@@ -277,7 +309,7 @@ nav {
     margin: 10px 0;
 }
 
-/* Literally just for the YT video embed */
+/* literally just for the YT video embed */
 .mediacontainer {
     display: flex;
     justify-content: center;

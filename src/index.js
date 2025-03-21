@@ -21,6 +21,7 @@ app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+
 app.get("/", (req, res) => {
     res.render("login");
 });
@@ -29,8 +30,14 @@ app.get("/register", (req, res) => {
     res.render("register");
 });
 
-app.get("/home", (req, res) => { // the feed
-    res.render("home");
+app.get("/home", async (req, res) => { // the feed of the forum
+    try {
+        const posts = await postcollection.find().sort({ postId: 1 });
+        res.render("home", { posts }); 
+    } catch (error) {
+        console.error(error);
+        res.render("home", { posts: [] });
+    }
 });
 
 app.get("/aboutus", (req, res) => {
@@ -113,7 +120,7 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
         }
 
         if (content_type === "image" && req.file) {
-            content = req.file.path;
+            content = req.file.filename; 
         }
 
         if (content_type === "video" && videoUrl) {

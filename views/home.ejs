@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Feed</title>
@@ -31,35 +32,43 @@
                 <button class = "sidebar-button" id = "tagfilter-button"> Tag Filter </button>
             </div>
             <div class="feed">
-                <div class="post">
-                    <div class="poster">
-                        <img src="../images/default-profile.png" alt="Profile Picture" class="poster-pfp">
-                        <a href="/post" class="poster-username">Nasher</a>
-                    </div>
-                    <div class="postcontent">
-                        <div class="content-header">
-                            <ul class="tags">
-                                <li style="background-color: #5271ff;">coding</li>
-                                <li style="background-color: #ff6347;">webdev</li>
-                                <li style="background-color: #32cd32;">informative</li>
-                            </ul>
-                            <div class="date-posted">Feb 15, 2025</div>
+                <% if (posts.length > 0) { %>
+                    <% posts.forEach(post => { %>
+                        <div class="post">
+                            <div class="poster">
+                                <img src="../images/default-profile.png" alt="Profile Picture" class="poster-pfp">
+                                <a href="/post/<%= post.postId %>" class="poster-username">Username</a>
+                            </div>
+                            <div class="postcontent">
+                                <div class="content-header">
+                                    <ul class="tags">
+                                        <li style="background-color: #5271ff;">coding</li>
+                                        <li style="background-color: #ff6347;">webdev</li>
+                                        <li style="background-color: #32cd32;">informative</li>
+                                    </ul>
+                                </div>
+                                <div class="below-header">
+                                    <h2 class="post-title"><%= post.title %></h2> 
+                                    <div class="date-posted"><%= post.date_posted.toDateString() %></div>
+                                </div>
+                                <div class="post-body">
+                                    <% if (post.content_type === "text") { %>
+                                        <p><%= post.content %></p>
+                                    <% } else if (post.content_type === "image") { %>
+                                        <img src="/uploads/<%= post.content %>" alt="Post Image">
+                                    <% } else if (post.content_type === "video") { %>
+                                        <iframe width="560" height="315" src="<%= post.content %>" frameborder="0" allowfullscreen></iframe>
+                                    <% } else if (post.content_type === "link") { %>
+                                        <a href="<%= post.content %>" target="_blank"><%= post.content %></a>
+                                    <% } %>
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-body">
-                            <p>Web development is the process of developing a website, 
-                                from design to programming to server management. It includes both the technical back end (web development) 
-                                and the visual front end (web design). Web developers can work on every step of this process or focus on a single aspect.</p>
-                        </div>
-                        <div class = "reaction">
-                            <button> 🔼 </button>
-                            <button> 🔽 </button>
-                            <button> 💬 </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-separator"></div>
-
-                <!-- EVERYTHING AFTER THESE ARE HARDCODED EXAMPLES -->
+                        <div class="post-separator"></div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No posts available</p>
+                <% } %>
             </div>
         </div>
     </body>
