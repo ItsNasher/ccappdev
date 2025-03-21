@@ -245,17 +245,14 @@ nav {
     border: 1px solid gray;
     padding: 15px;
     border-radius: 8px;
+    color: white;
+    font-size: 14px;
 }
 
 .post-title {
     color: white;
     font-size: 18px;
     font-weight: bold;
-}
-
-.post-text {
-    color: white;
-    font-size: 14px;
 }
 
 .reaction {
@@ -291,26 +288,34 @@ nav {
     font-weight: bold;
     color: white;
     margin-left: 10px;
+    gap: 10px;
 }
 
-.commenter img{
+.commenter img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 2px solid #4a90e2; 
 }
 
-.comment{
-    margin-top: -15px;
-    margin-left: 60px;
+.comment {
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 10px;
+    border-radius: 8px;
 }
 
-.commenttext {
-    font-size: 14px;
-    color: #bbb;
+.comment-text {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.4;
 }
 
-.commentdate {
+.comment-date {
     font-size: 12px;
-    color: gray;
+    color: #888;
+    margin-top: 4px;
+    display: block;
 }
+
 
