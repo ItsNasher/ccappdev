@@ -37,7 +37,7 @@
                         <div class="post">
                             <div class="poster">
                                 <img src="../images/default-profile.png" alt="Profile Picture" class="poster-pfp">
-                                <a href="/post/<%= Number(post.postId) %>" class="poster-username">Username</a>
+                                <a href="/profile" class="poster-username">Username</a>
                             </div>
                             <div class="postcontent">
                                 <div class="content-header">
@@ -51,17 +51,19 @@
                                     <h2 class="post-title"><%= post.title %></h2> 
                                     <div class="date-posted"><%= post.date_posted.toDateString() %></div>
                                 </div>
-                                <div class="post-body">
-                                    <% if (post.content_type === "text") { %>
-                                        <p><%= post.content %></p>
-                                    <% } else if (post.content_type === "image") { %>
-                                        <img src="/uploads/<%= post.content %>" alt="Post Image">
-                                    <% } else if (post.content_type === "video") { %>
-                                        <iframe width="560" height="315" src="<%= post.content %>" frameborder="0" allowfullscreen></iframe>
-                                    <% } else if (post.content_type === "link") { %>
-                                        <a href="<%= post.content %>" target="_blank"><%= post.content %></a>
-                                    <% } %>
-                                </div>
+                                <a href="/post/<%= Number(post.postId) %>">
+                                    <div class="post-body">
+                                        <% if (post.content_type === "text") { %>
+                                            <p><%= post.content %></p>
+                                        <% } else if (post.content_type === "image") { %>
+                                            <img src="/uploads/<%= post.content %>" alt="Post Image">
+                                        <% } else if (post.content_type === "video") { %>
+                                            <iframe width="560" height="315" src="<%= post.content %>" frameborder="0" allowfullscreen></iframe>
+                                        <% } else if (post.content_type === "link") { %>
+                                            <a href="<%= post.content %>" target="_blank"><%= post.content %></a>
+                                        <% } %>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                         <div class="post-separator"></div>
