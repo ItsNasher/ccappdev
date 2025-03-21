@@ -5,6 +5,7 @@ document.getElementById('createpost').addEventListener('click', function() {
 document.getElementById('profile-button').addEventListener('click', function() {
     window.location.href = '/profile';
 });
+
 // changes box size and counter
 document.addEventListener("DOMContentLoaded", function () {
     const titleInput = document.getElementById("title");
@@ -51,10 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
             updateContent(selectedType);
         });
     });
+});
 
     // changes content box based on what tab you are on
     function updateContent(type) {
         const contentBox = document.getElementById("content-box");
+
+        contentBox.innerHTML = "";
     
         if (type === "text") {
             contentBox.innerHTML = `<textarea id="post-text" placeholder="Write something..." rows="3"></textarea>`;
@@ -139,8 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }
+        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+        document.querySelector(`.tab[data-type="${type}"]`).classList.add("active");
     }
-});
 
 // to switch post button to not disabled
 document.addEventListener("DOMContentLoaded", function () {

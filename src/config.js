@@ -29,6 +29,11 @@ const LoginSchema  = new mongoose.Schema({
 
 // schema for posts (no username and tags yet)
 const PostSchema = new mongoose.Schema({
+    postId: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     title: { 
         type: String, 
         required: true 

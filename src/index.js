@@ -102,36 +102,36 @@ app.post("/login", async (req, res) => {
 
 // create post (no username and tags yet)
 app.post("/createpost", upload.single("file"), async (req, res) => {
-    console.log(req.file); // for testing
-    try {
-        const { title, content_type, videoUrl} = req.body;
-        let content = req.body.content;
+    console.log(req.body); 
 
-        if (!title || !content_type) {
-            return res.json({ error: "Title and content type are required!" });
+    try {
+        const { title, content_type, videoUrl } = req.body;
+        let content = req.body.content || "";
+
+        if (!title.trim()) {
+            return res.json({ error: "Title is required!" });
         }
 
-        if (content_type === "image") {
-            if (!req.file) {
-                return res.json({ error: "File upload required for this content type!" });
-            }
+        if (content_type === "image" && req.file) {
             content = req.file.path;
         }
 
-        if (content_type === "video") {
-            if (!videoUrl) {
-                return res.json({ error: "A video URL is required!" });
-            }
-            const youtubeMatch = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]+)/);
+        if (content_type === "video" && videoUrl) {
+            const youtubeMatch = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
             if (!youtubeMatch) {
                 return res.json({ error: "Invalid YouTube link!" });
             }
             content = `https://www.youtube.com/embed/${youtubeMatch[1]}`;
         }
 
-        const newPost = new postcollection({ 
-            title, 
-            content_type, 
+        // auto incremented post id
+        const lastPost = await postcollection.findOne().sort({ postId: -1 });
+        const newPostId = lastPost ? lastPost.postId + 1 : 1;
+
+        const newPost = new postcollection({
+            postId: newPostId,
+            title,
+            content_type: content_type || "text",
             content
         });
 
