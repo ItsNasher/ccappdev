@@ -1,0 +1,38 @@
+[
+  {
+    "name": "yosh1",
+    "email": "yoshchuac@gmail.com",
+    "password": "$2b$10$oSWm6vvVy9jqxU.YX2b7nuvRxnfzp8L9jGZz2U1qhUX1jkh4nJ1uS",
+    "__v": 0
+  },
+  {
+    "name": "user1",
+    "email": "user1@gmail.com",
+    "password": "$2b$10$iaKf0reWlv7KCjKh6O9sOe9x.2ZK5wczi1Mq3Fbuid83dlSx7CFwS",
+    "__v": 0
+  },
+  {
+    "name": "user2",
+    "email": "user2@gmail.com",
+    "password": "$2b$10$58q6PcyPGeLkBwOKzdzBx.iwgdV7e4QHx0jhzMUfLnsXPrz03Zatq",
+    "__v": 0
+  },
+  {
+    "name": "user3",
+    "email": "user3@gmail.com",
+    "password": "$2b$10$B3fY9sFrMdm4kRlY39HgweSMFvsDFxOIdmxUOErHiHK8FbIncb69G",
+    "__v": 0
+  },
+  {
+    "name": "user4",
+    "email": "user4@gmail.com",
+    "password": "$2b$10$vBVdwdweOsNhzXVY5yHp.u37IMN0LEwD38ONCucVTQK1dmLozc82a",
+    "__v": 0
+  },
+  {
+    "name": "user5",
+    "email": "user5@gmail.com",
+    "password": "$2b$10$YOqRvOpVpbT4HK.glYRWW.B7o24H.5uNEhl5Wt1uod49F0RcRNzv2",
+    "__v": 0
+  }
+]

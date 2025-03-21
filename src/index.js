@@ -1,3 +1,4 @@
+const fs = require("fs");
 const express = require('express');
 const path = require("path");
 const bcrypt = require("bcrypt");
@@ -169,6 +170,26 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
 });
 
 //create comment 
+
+//importing data from json
+async function importData() {
+    try {
+        const userData = JSON.parse(fs.readFileSync("data/users.json", "utf-8"));
+        const postData = JSON.parse(fs.readFileSync("data/posts.json", "utf-8"));
+        const commentData = JSON.parse(fs.readFileSync("data/comments.json", "utf-8"));
+
+        //insert json data
+        await collection.insertMany(userData);
+        await postcollection.insertMany(postData);
+        await commentcollection.insertMany(commentData);
+
+        console.log("JSON Data Imported Successfully!");
+    } catch (err) {
+        console.error(" Error importing JSON data:", err);
+    }
+}
+
+importData();
 
 const port = 3000;
 app.listen(port, () => {

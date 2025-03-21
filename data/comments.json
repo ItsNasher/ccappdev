@@ -1,0 +1,67 @@
+[
+  {
+    "postId": 1,
+    "text": "Comment3",
+    "username": "Username3"
+  },
+  {
+    "postId": 2,
+    "text": "Comment2",
+    "username": "username2"
+  },
+  {
+    "postId": 1,
+    "text": "Comment1",
+    "username": "Username1"
+  },
+  {
+    "postId": 1,
+    "text": "Comment2",
+    "username": "Username2"
+  },
+  {
+    "postId": 1,
+    "text": "Comment4",
+    "username": "Username4"
+  },
+  {
+    "postId": 1,
+    "text": "Comment5",
+    "username": "Username5"
+  },
+  {
+    "postId": 2,
+    "text": "Comment1",
+    "username": "username1"
+  },
+  {
+    "postId": 2,
+    "text": "Comment3",
+    "username": "username3"
+  },
+  {
+    "postId": 2,
+    "text": "Comment4",
+    "username": "username4"
+  },
+  {
+    "postId": 2,
+    "text": "Comment5",
+    "username": "username5"
+  },
+  {
+    "postId": 3,
+    "text": "Just study idk",
+    "username": "Student1"
+  },
+  {
+    "postId": 4,
+    "text": "Any Harry Potter movie ngl",
+    "username": "HarryPotterFan"
+  },
+  {
+    "postId": 5,
+    "text": "Math on top!",
+    "username": "Math_ON_TOP"
+  }
+]

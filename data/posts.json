@@ -1,0 +1,42 @@
+[
+  {
+    "postId": 1,
+    "title": "test1",
+    "content_type": "text",
+    "content": "content1",
+    "date_posted": "2025-03-21T14:00:54.550Z",
+    "__v": 0
+  },
+  {
+    "postId": 2,
+    "title": "test2",
+    "content_type": "text",
+    "content": "test2",
+    "date_posted": "2025-03-21T14:35:42.442Z",
+    "__v": 0
+  },
+  {
+    "postId": 3,
+    "title": "Whats a great way to study?",
+    "content_type": "text",
+    "content": "having problems studying ... just want to ask how you guys study",
+    "date_posted": "2025-03-21T16:10:15.245Z",
+    "__v": 0
+  },
+  {
+    "postId": 4,
+    "title": "Favorite movies?",
+    "content_type": "text",
+    "content": "wanted to binge watch movies so I'm asking here.",
+    "date_posted": "2025-03-21T16:11:14.385Z",
+    "__v": 0
+  },
+  {
+    "postId": 5,
+    "title": "favorite subject?",
+    "content_type": "text",
+    "content": "I personally like math, how about you guys?",
+    "date_posted": "2025-03-21T16:11:49.358Z",
+    "__v": 0
+  }
+]
