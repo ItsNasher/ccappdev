@@ -57,13 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // changes content box based on what tab you are on
     function updateContent(type) {
         const contentBox = document.getElementById("content-box");
-
-        contentBox.innerHTML = "";
     
         if (type === "text") {
-            contentBox.innerHTML = `<textarea id="post-text" placeholder="Write something..." rows="3"></textarea>`;
+            contentBox.innerHTML = `<textarea placeholder="Write something..." rows="5" id="content" name="content"></textarea>`;
             
-            const textarea = document.getElementById("post-text");
+            const textarea = document.getElementById("content");
             const minHeight = 135;
             const padding = 24;
             const lineHeight = 20;
