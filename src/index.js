@@ -174,9 +174,9 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
 //importing data from json
 async function importData() {
     try {
-        const userData = JSON.parse(fs.readFileSync("data/users.json", "utf-8"));
-        const postData = JSON.parse(fs.readFileSync("data/posts.json", "utf-8"));
-        const commentData = JSON.parse(fs.readFileSync("data/comments.json", "utf-8"));
+        const userData = JSON.parse(fs.readFileSync(__dirname + "/../data/users.json", "utf-8"));
+        const postData = JSON.parse(fs.readFileSync(__dirname + "/../data/posts.json", "utf-8"));
+        const commentData = JSON.parse(fs.readFileSync(__dirname + "/../data/comments.json", "utf-8"));
 
         //insert json data
         await collection.insertMany(userData);
