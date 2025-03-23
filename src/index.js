@@ -166,15 +166,6 @@ app.post("/savetags", async (req, res) => {
 app.post("/createpost", upload.single("file"), async (req, res) => {
     console.log("Received data:", req.body);
 
-    // fetches all the tags from db
-    try {
-        const tags = await tag.find(); 
-        res.render("createpost", { tags });
-    } catch (err) {
-        console.error(err);
-        res.render("createpost", { tags: [] });
-    }
-
     try {
         const { title, content_type, videoUrl } = req.body;
         let content = req.body.content || "";

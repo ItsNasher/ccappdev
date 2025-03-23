@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
 const Tag = require("./tag");
 
-// Creates default tags
+// creates preset tags
 async function addDefaultTags() {
     const tags = ['News', 'Tech', 'Sports', 'Gaming'];
   
@@ -15,11 +15,9 @@ async function addDefaultTags() {
     }
 }
 
-
 //checking connection
 connect.then(() => {
     console.log("Database connected Successfully!");
-
     addDefaultTags()
 })
 .catch(() => {

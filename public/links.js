@@ -278,6 +278,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
+            if(selectedTags.length <= 0){
+                isValid = false;
+                alert("Please select a tag!");
+            }
+
             if (!isValid) return;
 
             const formData = new FormData(form);
