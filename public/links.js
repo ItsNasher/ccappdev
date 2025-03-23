@@ -155,7 +155,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+let selectedTags = []; 
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form.createbody"); 
+    const postButton = document.getElementById("create-post");
+    const contentTypeInput = document.getElementById("content_type");
+
     const modal = document.getElementById("tags-modal");
     const openModalBtn = document.getElementById("add-tags-btn");
     const closeModalBtn = document.querySelector(".close");
@@ -165,17 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const addNewTagBtn = document.getElementById("add-new-tag");
     const selectedTagsDisplay = document.getElementById("selected-tags");
     const selectedTagsContainer = document.getElementById("selected-tags-container");
-    
-    let selectedTags = [];
+    const hiddenTagsInput = document.getElementById("tags");
+
     let availableTags = ["News", "Tech", "Sports", "Gaming"];
 
-    openModalBtn.addEventListener("click", () => {
-        modal.style.display = "block";
-    });
-
-    closeModalBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+    openModalBtn.addEventListener("click", () => modal.style.display = "block");
+    closeModalBtn.addEventListener("click", () => modal.style.display = "none");
 
     tagList.addEventListener("click", (event) => {
         if (event.target.classList.contains("tag-btn")) {
@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // add a new tag
     addNewTagBtn.addEventListener("click", () => {
         const newTag = newTagInput.value.trim();
         if (newTag && !availableTags.includes(newTag)) {
@@ -205,59 +206,49 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    confirmTagsBtn.addEventListener("click", () => {
+    // confirm selected tags
+    confirmTagsBtn.addEventListener("click", async () => {
+        console.log("Selected tags before check:", selectedTags);
+
         if (selectedTags.length > 0) {
             selectedTagsContainer.style.display = "block";
             selectedTagsDisplay.innerHTML = selectedTags
                 .map(tag => `<span class="selected-tag">${tag}</span>`)
                 .join(" ");
-    
-            document.getElementById("tags").value = selectedTags.join(",");
+
+            hiddenTagsInput.value = JSON.stringify(selectedTags);
+            console.log("Hidden input value updated to:", hiddenTagsInput.value);
+
+            try {
+                const response = await fetch("/savetags", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tags: selectedTags }),
+                });
+
+                const result = await response.json();
+                console.log("Server response:", result);
+                if (!result.success) {
+                    console.error("Failed to save tags:", result.error);
+                }
+            } catch (error) {
+                console.error("Error saving tags:", error);
+            }
         } else {
             selectedTagsContainer.style.display = "none";
-            document.getElementById("tags").value = ""; 
+            hiddenTagsInput.value = "[]";
         }
         modal.style.display = "none";
     });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".tab").forEach(tab => {
-        tab.addEventListener("click", () => {
-            let type = tab.getAttribute("data-type");
-            document.getElementById("content_type").value = type;
-
-            if (type === "image" || type === "video") {
-                document.getElementById("file-upload").style.display = "block";
-                document.getElementById("content").style.display = "none";
-            } else {
-                document.getElementById("file-upload").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            }
-        });
-    });
-
-    document.getElementById("confirm-tags").addEventListener("click", () => {
-        let selectedTags = Array.from(document.querySelectorAll("#selected-tags .tag-btn"))
-                                .map(tag => tag.dataset.tag);
-        document.getElementById("tags").value = JSON.stringify(selectedTags);
-    });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form.createbody"); 
-    const postButton = document.getElementById("create-post");
-    const contentTypeInput = document.getElementById("content_type");
 
     if (form) {
         form.addEventListener("submit", async function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             let isValid = true;
             const contentType = contentTypeInput.value;
-
             const titleInput = document.getElementById("title");
+            
             if (!titleInput.value.trim()) {
                 isValid = false;
                 alert("Title is required.");
@@ -290,6 +281,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!isValid) return;
 
             const formData = new FormData(form);
+
+            console.log("Selected tags before parse:", selectedTags);
+
+            const selectedTagsFromInput = Array.isArray(selectedTags) ? selectedTags : [];
+
+            console.log("Selected Tags for form submission:", selectedTagsFromInput);
+
+            formData.append("tags", JSON.stringify(selectedTagsFromInput));
+
             try {
                 const response = await fetch(form.action, {
                     method: "POST",
@@ -299,9 +299,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const result = await response.json();
                 if (result.success) {
                     alert(result.success);
-                    location.reload(); 
+                    location.reload();
                 } else {
-                    alert("Something went wrong. Please try again.");
+                    alert("Select a tag before posting.");
                 }
             } catch (error) {
                 alert("Error submitting the form.");
@@ -316,3 +316,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+            let type = tab.getAttribute("data-type");
+            document.getElementById("content_type").value = type;
+
+            if (type === "image" || type === "video") {
+                document.getElementById("file-upload").style.display = "block";
+                document.getElementById("content").style.display = "none";
+            } else {
+                document.getElementById("file-upload").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }
+        });
+    });
+
+    document.getElementById("confirm-tags").addEventListener("click", () => {
+        let selectedTags = Array.from(document.querySelectorAll("#selected-tags .tag-btn"))
+                                .map(tag => tag.dataset.tag);
+        document.getElementById("tags").value = JSON.stringify(selectedTags);
+    });
+});
+
+

@@ -16,7 +16,7 @@
                 <input placeholder="Search..." type = "search" class = "input">
             </div>
             <ul class = "headerlinks">
-                <li class = "links"><a href = "#">Chat</a></li>
+                <li class = "links"><a href = "/createpost">Create Post</a></li>
                 <li class = "links"><a href = "/">Log Out</a></li>
             </ul>
         </nav>
@@ -47,9 +47,9 @@
                 <div class="post">
                     <div class="post-header">
                         <ul class="tags">
-                            <li style="background-color: #5271ff;">coding</li>
-                            <li style="background-color: #ff6347;">webdev</li>
-                            <li style="background-color: #32cd32;">informative</li>
+                            <% post.tags.forEach(tag => { %>
+                                <li style="background-color: #5271ff;"><%= tag %></li> 
+                            <% }) %>
                         </ul>
                     </div>
                     <div class="below-header">

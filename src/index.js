@@ -1,8 +1,8 @@
-const fs = require("fs");
 const express = require('express');
 const path = require("path");
 const bcrypt = require("bcrypt");
-const { collection, commentcollection, postcollection, tag, mongoose} = require("./config"); // only works this way 
+const { collection, commentcollection, postcollection, mongoose} = require("./config"); // only works this way 
+const tag =  require("./tag");
 const upload = require("./fileupload"); 
 
 const app = express();
@@ -21,7 +21,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views')); 
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
 
 app.get("/", (req, res) => {
     res.render("login");
@@ -45,8 +44,14 @@ app.get("/aboutus", (req, res) => {
     res.render("aboutus");
 });
 
-app.get("/createpost", (req, res) => {
-    res.render("createpost");
+app.get("/createpost", async (req, res) => {
+    try {
+        const tags = await tag.find();
+        res.render("createpost", { tags }); 
+    } catch (err) {
+        console.error(err);
+        res.render("createpost", { tags: [] }); 
+    }
 });
 
 app.get("/post/:postId", async (req, res) => {
@@ -125,21 +130,80 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// create post (no username and tags yet)
+//saves tags
+app.post("/savetags", async (req, res) => {
+    try {
+        let { tags } = req.body;
+
+        if (typeof tags === "string") {
+            try {
+                tags = JSON.parse(tags);
+            } catch (error) {
+                return res.status(400).json({ error: "Invalid tags format!" });
+            }
+        }
+
+        if (!Array.isArray(tags)) {
+            return res.status(400).json({ error: "Tags should be an array!" });
+        }
+
+        const savedTags = await tag.insertMany(
+            tags.map(tag => ({ name: tag })),
+            { ordered: false } 
+        );
+
+        res.json({ success: "Tags saved successfully", savedTags });
+    } catch (error) {
+        if (error.code === 11000) { 
+            const existingTags = await tag.find({ name: { $in: tag } });
+            return res.json({ success: "Tags updated successfully", savedTags: existingTags });
+        }
+        res.status(500).json({ error: "Failed to save tags" });
+    }
+});
+
+// create post (no username yet)
 app.post("/createpost", upload.single("file"), async (req, res) => {
-    console.log(req.body); 
+    console.log("Received data:", req.body);
+
+    // fetches all the tags from db
+    try {
+        const tags = await tag.find(); 
+        res.render("createpost", { tags });
+    } catch (err) {
+        console.error(err);
+        res.render("createpost", { tags: [] });
+    }
 
     try {
         const { title, content_type, videoUrl } = req.body;
         let content = req.body.content || "";
+        let parsedTags = [];
 
         if (!title.trim()) {
             return res.json({ error: "Title is required!" });
         }
 
-        if (content_type === "image" && req.file) {
-            content = req.file.filename; 
+        if (Array.isArray(req.body.tags)) {
+            req.body.tags = req.body.tags.filter(tag => tag !== "[]");
         }
+
+        const tagsString = req.body.tags.length > 0 ? req.body.tags[0] : "[]";
+        parsedTags = JSON.parse(tagsString);
+
+        if (!Array.isArray(parsedTags)) {
+            return res.json({ error: "Tags must be an array!" });
+        }
+
+        console.log("Parsed Tags:", parsedTags);
+
+        const tagNames = parsedTags;
+
+        console.log("Tag Names:", tagNames);
+
+        if (content_type === "image" && req.file) {
+            content = req.file.filename;
+        } 
 
         if (content_type === "video" && videoUrl) {
             const youtubeMatch = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
@@ -149,7 +213,7 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
             content = `https://www.youtube.com/embed/${youtubeMatch[1]}`;
         }
 
-        // auto incremented post id
+        // post id in descending order (first post to last post might add button for this)
         const lastPost = await postcollection.findOne().sort({ postId: -1 });
         const newPostId = lastPost ? lastPost.postId + 1 : 1;
 
@@ -157,7 +221,8 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
             postId: newPostId,
             title,
             content_type: content_type || "text",
-            content
+            content,
+            tags: tagNames
         });
 
         await newPost.save();
@@ -170,26 +235,6 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
 });
 
 //create comment 
-
-//importing data from json
-async function importData() {
-    try {
-        const userData = JSON.parse(fs.readFileSync(__dirname + "/../data/users.json", "utf-8"));
-        const postData = JSON.parse(fs.readFileSync(__dirname + "/../data/posts.json", "utf-8"));
-        const commentData = JSON.parse(fs.readFileSync(__dirname + "/../data/comments.json", "utf-8"));
-
-        //insert json data
-        await collection.insertMany(userData);
-        await postcollection.insertMany(postData);
-        await commentcollection.insertMany(commentData);
-
-        console.log("JSON Data Imported Successfully!");
-    } catch (err) {
-        console.error(" Error importing JSON data:", err);
-    }
-}
-
-importData();
 
 const port = 3000;
 app.listen(port, () => {

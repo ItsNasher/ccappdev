@@ -499,6 +499,8 @@ nav {
 }
 #tag-list{
     margin-bottom: 7px;
+    max-height: 10rem;
+    overflow-y: auto;
 }
 .modal-content {
     display: flex;

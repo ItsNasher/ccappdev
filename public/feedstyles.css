@@ -175,7 +175,7 @@ nav {
     color: white;
     margin-left: 24%;
     padding-top: 4rem;
-    width: 100%;
+    width: 76%;
 }
 
 .post {
@@ -247,6 +247,9 @@ nav {
     font-family: 'Inter';
     font-size: 18px;
     font-weight: 550;
+    width: 83%;
+    word-wrap: break-word;
+    white-space: normal;
 }
 .date-posted {
     color: #a6a6a6;

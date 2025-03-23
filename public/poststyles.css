@@ -24,10 +24,16 @@ body{
 }
 
 .header{
-    padding: 9px;
-    padding-left: 24px;
-    padding-right: 24px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #212430;
+    padding: 10px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    border-bottom: 0.5px solid white;
 }
 
 nav {
@@ -124,7 +130,9 @@ nav {
     flex-direction: column;
     width: 22%;
     height: 100vh;
-    border-right: 0.5px solid white;
+    border-right: 0.5px solid #fff;
+    position: fixed;
+    padding-top: 4rem;
 }
 
 .return {
@@ -202,6 +210,9 @@ nav {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin-left: 23%;
+    padding-top: 5rem;
+    max-width: 77%;
 }
 
 .post {
@@ -237,22 +248,32 @@ nav {
 }
 
 .date {
+    color: #a6a6a6;
     font-size: 12px;
-    color: gray;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: flex-end; 
 }
 
 .post-content {
+    margin-top: 1rem;
     border: 1px solid gray;
     padding: 15px;
     border-radius: 8px;
-    color: white;
+    color: #cecece;
     font-size: 14px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .post-title {
-    color: white;
+    color: rgb(231, 231, 231);
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 450;
+    width: 83%;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .reaction {
@@ -318,4 +339,11 @@ nav {
     display: block;
 }
 
-
+.below-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+    gap: 5px;
+}

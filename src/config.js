@@ -1,10 +1,26 @@
 const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
+const Tag = require("./tag");
+
+// Creates default tags
+async function addDefaultTags() {
+    const tags = ['News', 'Tech', 'Sports', 'Gaming'];
+  
+    for (let tag of tags) {
+      await Tag.updateOne(
+        { name: tag }, 
+        { $setOnInsert: { name: tag } }, 
+        { upsert: true } 
+      );
+    }
+}
 
 
 //checking connection
 connect.then(() => {
     console.log("Database connected Successfully!");
+
+    addDefaultTags()
 })
 .catch(() => {
     console.log("Database cannot be connected.");
@@ -47,6 +63,9 @@ const PostSchema = new mongoose.Schema({
         enum: ["text", "image", "video", "link"],
         required: true 
     },
+    tags: [{
+        type: String
+    }],
     content: { 
         type: String, 
         required: true 
@@ -76,20 +95,9 @@ const CommentSchema = new mongoose.Schema({
 });
 
 
-// schema for the tags
-const TagSchema = new mongoose.Schema({
-    name: { 
-        type: String, 
-        unique: true, 
-        required: true 
-    }
-});
-
-
 //collection port
 const collection = new mongoose.model("users", LoginSchema);
 const postcollection = mongoose.model("posts", PostSchema);
 const commentcollection = mongoose.model("comments", CommentSchema)
-const tag = mongoose.model("tags", TagSchema);
 
-module.exports = { collection, postcollection, commentcollection, tag, mongoose};
+module.exports = { collection, postcollection, commentcollection, mongoose};

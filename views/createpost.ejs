@@ -32,7 +32,7 @@
             <form class = "createbody" action="/createpost" method="POST" enctype="multipart/form-data">
                 <p class="headertitle">Create Post</p>
                 <button type="button" class="tags" id="add-tags-btn">Add tags</button>
-                <input type="hidden" id="tags" name="tags">
+                <input type="hidden" id="tags" name="tags" value="[news, game]">
 
                 <div id="selected-tags-container">
                     <div id="selected-tags"></div>
@@ -62,7 +62,6 @@
                     </div>
                     <button type="submit" id="create-post" disabled>Post</button>
             </form>
-                <!-- pop up for the add tags -->
                 <div id="tags-modal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -70,15 +69,15 @@
                         <button id="add-new-tag">Add Tag</button>
                         <p>Select tags:</p>
                         <div id="tag-list">
-                            <button class="tag-btn" data-tag="News">News</button>
-                            <button class="tag-btn" data-tag="Tech">Tech</button>
-                            <button class="tag-btn" data-tag="Sports">Sports</button>
-                            <button class="tag-btn" data-tag="Gaming">Gaming</button>
+                            <% tags.forEach(tag => { %>
+                                <button class="tag-btn" data-tag="<%= tag.name %>"><%= tag.name %></button>
+                            <% }) %>
                         </div>
                         <p>Selected: <span id="selected-tags"></span></p>
                         <button id="confirm-tags">Confirm</button>
                     </div>
                 </div>
             <script src="links.js"></script>
+            <script src="config.js"></script>
     </body>
 </html>
