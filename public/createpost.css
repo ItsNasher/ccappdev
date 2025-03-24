@@ -521,3 +521,8 @@ nav {
 #confirm-tags:active {
     transform: scale(0.98);
 } 
+#tag-characters {
+    color: #d9e3f0;
+    font-size: 12px;
+    margin-bottom: 6px;
+}

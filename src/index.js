@@ -79,6 +79,20 @@ app.get("/profile", (req, res) => {
     res.render("profile");
 });
 
+
+// gets all the tags
+app.get("/savetags", async (req, res) => {
+    try {
+        const tags = await tag.find({}, "name");
+        const tagNames = tags.map(t => t.name);
+
+        res.json(tagNames);
+    } catch (error) {
+        console.error("Error fetching tags:", error);
+        res.status(500).json({ error: "Failed to fetch tags" });
+    }
+});
+
 //register User
 app.post("/register", async (req, res) => {
     try {

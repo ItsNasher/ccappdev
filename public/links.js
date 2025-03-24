@@ -155,6 +155,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// tag max characters
+document.addEventListener("DOMContentLoaded", function () {
+    const tagInput = document.getElementById("new-tag-input");
+    const tagCharCounter = document.getElementById("tag-characters");
+
+    tagInput.addEventListener("input", function () {
+        let length = tagInput.value.length;
+        tagCharCounter.textContent = `${length}/15`;
+
+        if (length > 15) {
+            tagInput.value = tagInput.value.substring(0, 15);
+            tagCharCounter.textContent = `15/15`;
+        }
+    });
+});
+
 let selectedTags = []; 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form.createbody"); 
@@ -193,6 +209,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // add a new tag
     addNewTagBtn.addEventListener("click", () => {
         const newTag = newTagInput.value.trim();
+        if (newTag.length > 15) {
+            alert("Tags can only be up to 15 characters.");
+            return;
+        }
         if (newTag && !availableTags.includes(newTag)) {
             availableTags.push(newTag);
             const newTagBtn = document.createElement("button");
