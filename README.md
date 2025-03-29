@@ -26,7 +26,7 @@
   - ~~tested out adding text/image/link to content and then switching to see if the upload will work. It works if its switching tabs to images or videos, but if its text it doesnt. Also example: title: aa text: aa --switch-->  image: randomimg.jpg (post created succsefully! posted the image in the db). Doesn't work if its image and video towards text tho.~~
   - ~~(difficult) store selected tags in db for future forum use~~
   - ~~Link the made posts in the db to the feed~~
-  - (optional) assign random color to each tag
+  - ~~(optional) assign random color to each tag~~
  
   ## Profile
   ## Comments
