@@ -4,14 +4,19 @@ const Tag = require("./tag");
 
 // creates preset tags
 async function addDefaultTags() {
-    const tags = ['News', 'Tech', 'Sports', 'Gaming'];
-  
-    for (let tag of tags) {
-      await Tag.updateOne(
-        { name: tag }, 
-        { $setOnInsert: { name: tag } }, 
-        { upsert: true } 
-      );
+    const tagsWithColors = [
+        { name: 'News', color: '#ff5733' },
+        { name: 'Tech', color: '#3498db' },
+        { name: 'Sports', color: '#2ecc71' }, 
+        { name: 'Gaming', color: '#9b59b6' } 
+    ];
+
+    for (let tag of tagsWithColors) {
+        await Tag.updateOne(
+            { name: tag.name },
+            { $setOnInsert: { name: tag.name, color: tag.color } },
+            { upsert: true }
+        );
     }
 }
 

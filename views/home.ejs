@@ -42,8 +42,11 @@
                             <div class="postcontent">
                                 <div class="content-header">
                                     <ul class="tags">
-                                        <% post.tags.forEach(tag => { %>
-                                            <li style="background-color: #5271ff;"><%= tag %></li> 
+                                        <% post.tags.forEach(tag => { 
+                                            const matchedTag = fetchedTags.find(t => t.name === tag); // Match tag by name
+                                            const tagColor = matchedTag ? matchedTag.color : '#5271ff'; // Default color if not found
+                                        %>
+                                            <li style="background-color: <%= tagColor %>;"><%= tag %></li>
                                         <% }) %>
                                     </ul>
                                 </div>

@@ -33,10 +33,11 @@ app.get("/register", (req, res) => {
 app.get("/home", async (req, res) => { // the feed of the forum
     try {
         const posts = await postcollection.find().sort({ postId: 1 });
-        res.render("home", { posts }); 
+        const fetchedTags = await tag.find({}, "name color");
+        res.render("home", { posts, fetchedTags }); 
     } catch (error) {
         console.error(error);
-        res.render("home", { posts: [] });
+        res.render("home", { posts: [], fetchedTags: []  });
     }
 });
 
@@ -46,7 +47,7 @@ app.get("/aboutus", (req, res) => {
 
 app.get("/createpost", async (req, res) => {
     try {
-        const tags = await tag.find();
+        const tags = await tag.find({}, "name color");
         res.render("createpost", { tags }); 
     } catch (err) {
         console.error(err);
@@ -64,11 +65,12 @@ app.get("/post/:postId", async (req, res) => {
         if (!post) {
             return res.json({ error: "Post not found!" })
         }
-
         //get comments related to the post
         const comments = await commentcollection.find({ postId });
 
-        res.render("post", { post, comments }); 
+        const fetchedTags = await tag.find({}, "name color");
+
+        res.render("post", { post, comments, fetchedTags }); 
 
     } catch (error) {
         console.error(error);
@@ -79,14 +81,12 @@ app.get("/profile", (req, res) => {
     res.render("profile");
 });
 
-
+// const tagNames = tags.map(t => t.name);
 // gets all the tags
 app.get("/savetags", async (req, res) => {
     try {
-        const tags = await tag.find({}, "name");
-        const tagNames = tags.map(t => t.name);
-
-        res.json(tagNames);
+        const tags = await tag.find({}, "name color");
+        res.json(tags);
     } catch (error) {
         console.error("Error fetching tags:", error);
         res.status(500).json({ error: "Failed to fetch tags" });
@@ -161,17 +161,30 @@ app.post("/savetags", async (req, res) => {
             return res.status(400).json({ error: "Tags should be an array!" });
         }
 
-        const savedTags = await tag.insertMany(
-            tags.map(tag => ({ name: tag })),
-            { ordered: false } 
-        );
+        const tagColors = ["#5271ff", "#ff5733", "#33ff57", "#f1c40f", "#9b59b6", "#e74c3c", "#3498db"];
 
-        res.json({ success: "Tags saved successfully", savedTags });
-    } catch (error) {
-        if (error.code === 11000) { 
-            const existingTags = await tag.find({ name: { $in: tag } });
-            return res.json({ success: "Tags updated successfully", savedTags: existingTags });
+        const existingTags = await tag.find({ name: { $in: tags } });
+        const existingTagNames = existingTags.map(t => t.name);
+
+        const newTags = tags.filter(t => !existingTagNames.includes(t));
+
+        const tagCount = await tag.countDocuments();
+
+        const newTagObjects = newTags.map((tagName, index) => ({
+            name: tagName,
+            color: tagColors[(tagCount + index) % tagColors.length] 
+        }));
+
+        if (newTagObjects.length > 0) {
+            await tag.insertMany(newTagObjects);
         }
+
+        const allTags = await tag.find({ name: { $in: tags } });
+
+        res.json({ success: "Tags saved successfully", savedTags: allTags });
+
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Failed to save tags" });
     }
 });
