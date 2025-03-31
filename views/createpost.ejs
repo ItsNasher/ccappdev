@@ -27,7 +27,19 @@
                 <button class="back"><a href="/home">⬅ Back</a></button>
                 <button class = "sidebar-button" id = "profile-button" onclick="goToProfile()"> Profile </button>
                 <button class = "sidebar-button" id = "createpost">Create Post</button>
-                <button class = "sidebar-button" id = "logout-button"><a href = "/">Log Out</a></button>
+                <button class = "sidebar-button" id = "logout">Log Out</button>
+            </div>
+            <div id="logoutModal" class="logoutmodal">
+                <div class="logoutmodal-content">
+                    <span class="logoutclose">&times;</span>
+                    <div class="textlog">
+                        <h3>Are you sure you want to log out?</h3>
+                        <div class="confirmations">
+                            <button id="confirmLogout">Log Out</button>
+                            <button id="cancelLogout">Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <form class = "createbody" action="/createpost" method="POST" enctype="multipart/form-data">
                 <p class="headertitle">Create Post</p>

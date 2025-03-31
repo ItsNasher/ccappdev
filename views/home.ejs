@@ -17,7 +17,20 @@
             </div>
             <ul class="headerlinks">
                 <li class="links"><a href="/createpost">Create Post</a></li>
-                <li class="links"><a href="/">Log Out</a></li>
+                <li class="links"><a href="/" id="logout">Log Out</a></li>
+                
+                <div id="logoutModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="textlog">
+                            <h3>Are you sure you want to log out?</h3>
+                            <div class="confirmations">
+                                <button id="confirmLogout">Log Out</button>
+                                <button id="cancelLogout">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ul>
         </nav>
         <div class="mainbody">
@@ -25,7 +38,7 @@
                 <div class="profile">
                     <img src="../images/default-profile.png" alt="Profile Picture">
                     <a href = "/profile">
-                        <span class="username">Username</span>
+                        <span class="username"><%= user.name %></span>
                     </a>
                 </div>
                 <button class = "sidebar-button" id = "home-button"> Home </button>
@@ -77,7 +90,7 @@
             </div>
             <div id="tagFilterModal" class="modal">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="modalclose">&times;</span>
                     <h3 style="font-weight: 600; margin-bottom: 12px">Select Tags to Filter:</h3>
                     <div id="tagOptions">
                     </div>

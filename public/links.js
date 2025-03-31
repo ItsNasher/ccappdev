@@ -365,4 +365,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// logout
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("logoutModal");
+    const logoutButton = document.getElementById("logout");
+    const closeButton = modal.querySelector(".logoutclose");
+    const confirmLogoutButton = document.getElementById("confirmLogout");
+    const cancelLogoutButton = document.getElementById("cancelLogout");
 
+    logoutButton.addEventListener("click", (event) => {
+        event.preventDefault(); 
+        modal.style.display = "block";
+    });
+
+    closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    cancelLogoutButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    confirmLogoutButton.addEventListener("click", () => {
+        window.location.href = "/logout";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});

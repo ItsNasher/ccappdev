@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const modal = document.getElementById("tagFilterModal");
     const openButton = document.getElementById("tagfilter-button");
-    const closeButton = document.querySelector(".close");
+    const closeButton = document.querySelector(".modalclose");
     const applyFilterButton = document.getElementById("applyFilter");
     const tagOptions = document.getElementById("tagOptions");
     let selectedTags = new Set();
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         tags.forEach(tag => {
             console.log("Appending tag:", tag);
             const label = document.createElement("label");
-            label.innerHTML = `<input type="checkbox" value="${tag}"> ${tag}`;
+            label.innerHTML = `<input type="checkbox" value="${tag.name}"> ${tag.name}`;
             tagOptions.appendChild(label);
         });
     } catch (err) {
@@ -69,4 +69,36 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
     }
+});
+
+// logout
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("logoutModal");
+    const logoutButton = document.getElementById("logout");
+    const closeButton = modal.querySelector(".close");
+    const confirmLogoutButton = document.getElementById("confirmLogout");
+    const cancelLogoutButton = document.getElementById("cancelLogout");
+
+    logoutButton.addEventListener("click", (event) => {
+        event.preventDefault(); 
+        modal.style.display = "block";
+    });
+
+    closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    cancelLogoutButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    confirmLogoutButton.addEventListener("click", () => {
+        window.location.href = "/logout";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 });

@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const { collection, commentcollection, postcollection, mongoose} = require("./config"); // only works this way 
 const tag =  require("./tag");
 const upload = require("./fileupload"); 
+const session = require('express-session');
+const store = require('connect-mongo');
 
 const app = express();
 
@@ -14,6 +16,28 @@ app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
+
+// for sessions
+app.use(session({
+    secret: '3IkCoVO8Cr', // secret key
+    resave: false,
+    saveUninitialized: false,
+    store: store.create({
+        mongoUrl: 'mongodb://localhost:27017/LogInPage',
+        collectionName: 'sessions',
+        ttl: 14 * 24 * 60 * 60, // 14 day expiration
+    }),
+    cookie: { secure: false }
+}));
+
+//function to see if someones logged in
+function requireLogin(req, res, next) {
+    if (!req.session.user) {
+        return res.redirect("/");
+    }
+    next();
+}
+
 
 //EJS as view engine
 app.set('view engine', 'ejs');
@@ -34,7 +58,7 @@ app.get("/home", async (req, res) => { // the feed of the forum
     try {
         const posts = await postcollection.find().sort({ postId: 1 });
         const fetchedTags = await tag.find({}, "name color");
-        res.render("home", { posts, fetchedTags }); 
+        res.render("home", { posts, fetchedTags, user: req.session.user || { name: "Guest" } }); 
     } catch (error) {
         console.error(error);
         res.render("home", { posts: [], fetchedTags: []  });
@@ -78,7 +102,18 @@ app.get("/post/:postId", async (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-    res.render("profile");
+    res.render("profile", { user: req.session.user });
+});
+
+// logs out
+app.get("/logout", (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Error :", err);
+            return res.status(500).json({ error: "Logout failed." });
+        }
+        res.redirect("/");
+    });
 });
 
 // const tagNames = tags.map(t => t.name);
@@ -136,6 +171,8 @@ app.post("/login", async (req, res) => {
         if (!isPasswordMatch) {
             return res.json({ error: "Wrong Password!" });
         }
+
+        req.session.user = { _id: check._id, name: check.name };
 
         res.json({ success: "Login successful! Welcome to CHAT!" });
     } catch (err) {
@@ -251,6 +288,7 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
         res.json({ error: "Failed to create post!" });
     }
 });
+
 
 //create comment 
 
