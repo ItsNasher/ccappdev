@@ -15,10 +15,10 @@
   3. `npm install` to download dependencies
  
   ## Login Register
-  - Sessions (so that log out works, and the site remembers who is logged on)
+  - ~~Sessions (so that log out works, and the site remembers who is logged on)~~
  
   ## Main Forum
-  - Do the whole thing
+  - Add authentication (so that if you aren't logged in, you cant post or comment or go to profile).
  
   ## Create Post (including tag filters)
   - ~~Allow uploading of video links~~
@@ -27,6 +27,10 @@
   - ~~(difficult) store selected tags in db for future forum use~~
   - ~~Link the made posts in the db to the feed~~
   - ~~(optional) assign random color to each tag~~
+  - add username as an attribute to the post
  
   ## Profile
+  - Add object id as an attribute for users (so that we can see the posts that they have made).
+  - add bio as an attribute for profile introduction.
   ## Comments
+  - add username as an attribute to the comment
