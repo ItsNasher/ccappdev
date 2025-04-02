@@ -1,3 +1,4 @@
+## S19 Group 7
 ### Guide (Setting up Locally)
  1. Find the file and run `npm install` for all necessary dependencies
  2. go to `config.js` and change connection to your mongodb connection.
