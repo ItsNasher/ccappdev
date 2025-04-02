@@ -4,6 +4,12 @@
  3. Register and Login
  4. Create Post = click create post button.
  5. Comment = manual input on db for now
+
+### Overview
+CHAT (community hub for active threads/tags) is a platform that houses discussions on any topic. The web application will present the user with a landing page containing an account system where users will be able to log in on their accounts and personalize it based on what they want other users to see. Users can create posts to talk about any topic, users can also make comments on other users’ posts. 
+
+Since CHAT will be a general focused forum, meaning it will often get cluttered especially without a feature that can easily sort or filter through posts. One of the features of this website would be a “Post Tag” feature allowing easier identification of what a post is about and can allow users to filter posts based on the post tag, making it so that only posts with that tag will appear. This will help keep the forum more organized.
+
  
  ### To Do List
   ## Landing Page
