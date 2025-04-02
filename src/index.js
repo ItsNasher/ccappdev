@@ -240,6 +240,12 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
             return res.json({ error: "Title is required!" });
         }
 
+        if (!req.session.user) {
+            return res.json({ error: "User not logged in!" });
+        }
+
+        const username = req.session.user.name;
+
         if (Array.isArray(req.body.tags)) {
             req.body.tags = req.body.tags.filter(tag => tag !== "[]");
         }
@@ -278,7 +284,8 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
             title,
             content_type: content_type || "text",
             content,
-            tags: tagNames
+            tags: tagNames,
+            username
         });
 
         await newPost.save();
