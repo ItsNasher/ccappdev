@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb+srv://yosh:DLSU1234!@loginpage.w8oya.mongodb.net/");
+const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
 const Tag = require("./tag");
 
 // creates preset tags
