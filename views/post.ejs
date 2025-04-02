@@ -74,6 +74,13 @@
                     </div>
                 </div>
 
+                <% if (user.name === post.username) { %>
+                    <div class="post-actions">
+                        <button class="editPost" post-id="<%= post.postId %>">Edit Post</button>
+                        <button class="deletePost" post-id="<%= post.postId %>">Delete Post</button>
+                    </div>
+                <% } %>
+
                 <div class = "reaction">
                     <button> 🔼 </button>
                     <button> 🔽 </button>
@@ -113,5 +120,6 @@
             </div>
         </div>
         <script src="/comments.js"></script>
+        <script src="/post.js"></script>
     </body>
 </html>

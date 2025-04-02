@@ -38,7 +38,6 @@ function requireLogin(req, res, next) {
     next();
 }
 
-
 //EJS as view engine
 app.set('view engine', 'ejs');
 
@@ -79,7 +78,6 @@ app.get("/createpost", async (req, res) => {
     }
 });
 
-//render post
 app.get("/post/:postId", async (req, res) => {
     try {
         const postId = req.params.postId;
@@ -361,6 +359,81 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
     }
 });
 
+//edit post
+app.post("/editpost", async (req, res) => {
+    try {
+        const { postId, newTitle, newContent } = req.body;
+        const username = req.session.user.name;
+
+        const post = await postcollection.findOne({ postId: Number(postId) });
+
+        if (!post) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        if (post.username !== username) {
+            return res.status(403).json({ error: "You can only edit your own posts" });
+        }
+
+        if (!newTitle || newTitle.trim() === "") {
+            return res.status(400).json({ error: "Post title cannot be empty" });
+        }
+
+        if (!newContent || newContent.trim() === "") {
+            return res.status(400).json({ error: "Post content cannot be empty" });
+        }
+
+        const updatedPost = await postcollection.findOneAndUpdate(
+            { postId: Number(postId) },
+            { 
+                title: newTitle,
+                content: newContent,
+                date_posted: new Date() 
+            },
+            { new: true }
+        );
+
+        res.json({ 
+            success: "Edited the post successfully", 
+            post: updatedPost 
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to edit post" });
+    }
+});
+
+//delete post
+app.post("/deletepost", async (req, res) => {
+    try {
+        const { postId } = req.body;
+        const username = req.session.user.name;
+
+        const post = await postcollection.findOne({ postId: Number(postId) });
+
+        if (!post) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        if (post.username !== username) {
+            return res.status(403).json({ error: "You can only delete your own posts" });
+        }
+
+        //delete comments under post (useless data) then the post itself
+        await commentcollection.deleteMany({ postId: Number(postId) });
+        await postcollection.findOneAndDelete({ postId: Number(postId) });
+
+        res.json({ 
+            success: "Post and comments deleted successfully",
+            redirectUrl: "/home"
+        });
+    } 
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to delete post" });
+    }
+});
+
 //create comment 
 app.post("/createcomment", async (req, res) => {
     try {
@@ -413,10 +486,11 @@ app.post("/editcomment", async (req, res) => {
             { new: true }
         );
 
-        res.json({ success: "Comment updated successfully", comment: updatedComment });
-    } catch (err) {
+        res.json({ success: "Comment edited successfully", comment: updatedComment });
+    } 
+    catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Failed to update comment" });
+        res.status(500).json({ error: "Failed to edit comment" });
     }
 });
 
@@ -439,7 +513,8 @@ app.post("/deletecomment", async (req, res) => {
         await commentcollection.findOneAndDelete({ commentId: Number(commentId) });
 
         res.json({ success: "Comment deleted successfully" });
-    } catch (err) {
+    } 
+    catch (err) {
         console.error(err);
         res.status(500).json({ error: "Failed to delete comment" });
     }
