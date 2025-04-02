@@ -102,8 +102,34 @@ app.get("/post/:postId", async (req, res) => {
     }
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile", { user: req.session.user });
+app.get("/profile", async (req, res) => {
+    try {
+        const userId = req.session.user._id;
+        const user = await collection.findOne({ _id: userId });
+
+        if (!user) {
+            return res.status(404).render("error", { message: "User not found!" });
+        }
+
+        const userPosts = await postcollection.find({ postId: { $in: user.posts } });
+        const userComments = await commentcollection.find({ userId });
+        const fetchedTags = await tag.find({}, "name color");
+
+        res.render("profile", { 
+            user: { 
+                _id: user._id, 
+                name: user.name, 
+                bio: user.bio 
+            }, 
+            posts: userPosts, 
+            comments: userComments,
+            fetchedTags,
+            req: req 
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).render("error", { message: "Failed to fetch profile data!" });
+    }
 });
 
 // logs out
@@ -126,6 +152,38 @@ app.get("/savetags", async (req, res) => {
     } catch (error) {
         console.error("Error fetching tags:", error);
         res.status(500).json({ error: "Failed to fetch tags" });
+    }
+});
+
+// click on a users post
+app.get("/profile/:userId", async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const user = await collection.findOne({ _id: new mongoose.Types.ObjectId(userId) });
+
+        if (!user) {
+            return res.status(404).render("error", { message: "User not found!" });
+        }
+
+        const userPosts = await postcollection.find({ userId: user._id });
+        const userComments = await commentcollection.find({ userId: user._id });
+        const fetchedTags = await tag.find({}, "name color");
+
+        res.render("profile", { 
+            user: { 
+                _id: user._id, 
+                name: user.name, 
+                bio: user.bio 
+            }, 
+            posts: userPosts, 
+            comments: userComments,
+            fetchedTags,
+            req: req
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).render("error", { message: "Failed to fetch profile data!" });
     }
 });
 
@@ -173,7 +231,7 @@ app.post("/login", async (req, res) => {
             return res.json({ error: "Wrong Password!" });
         }
 
-        req.session.user = { _id: check._id, name: check.name };
+        req.session.user = { _id: check._id, name: check.name, bio: check.bio };
 
         res.json({ success: "Login successful! Welcome to CHAT!" });
     } catch (err) {
@@ -245,6 +303,7 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
         }
 
         const username = req.session.user.name;
+        const userId = req.session.user._id;
 
         if (Array.isArray(req.body.tags)) {
             req.body.tags = req.body.tags.filter(tag => tag !== "[]");
@@ -280,6 +339,7 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
         const newPostId = lastPost ? lastPost.postId + 1 : 1;
 
         const newPost = new postcollection({
+            userId,
             postId: newPostId,
             title,
             content_type: content_type || "text",
@@ -290,7 +350,11 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
 
         await newPost.save();
 
-        res.json({ success: "Post created successfully!" });
+        await collection.updateOne(
+            { _id: userId },
+            { $push: { posts: newPostId } }
+        );
+        res.json({ success: "Post created successfully!", postId: newPostId });
     } catch (err) {
         console.error(err);
         res.json({ error: "Failed to create post!" });
@@ -302,12 +366,28 @@ app.post("/createcomment", async (req, res) => {
     try {
         const { postId, username, text } = req.body; 
 
+        if (!req.session.user) {
+            return res.json({ error: "User not logged in!" });
+        }
+
+        const lastComment = await commentcollection.findOne().sort({ commentId: -1 });
+        const newCommentId = lastComment ? lastComment.commentId + 1 : 1;
+
+        const userId = req.session.user._id;
+
         const newComment = new commentcollection({
+            commentId: newCommentId,
             postId,
+            userId,
             username,
             text,
             date_posted: new Date()
         });
+
+        await collection.updateOne(
+            { _id: userId },
+            { $push: { comments: newCommentId } }
+        );
 
         await newComment.save();
         res.json({ success: "Comment created!" });
@@ -316,6 +396,32 @@ app.post("/createcomment", async (req, res) => {
     catch (err) {
         console.error(err);
         res.json({ error: "Something went wrong. Try again!" });
+    }
+});
+
+//update profile
+app.post("/updateProfile", async (req, res) => {
+    try {
+        const { username, bio } = req.body;
+
+        if (!req.session.user) {
+            return res.json({ error: "User not logged in!" });
+        }
+
+        const userId = req.session.user._id;
+
+        await collection.updateOne(
+            { _id: userId },
+            { $set: { name: username, bio } }
+        );
+
+        req.session.user.name = username;
+        req.session.user.bio = bio;
+
+        res.json({ success: "Profile updated successfully!" });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: "Failed to update profile!" });
     }
 });
 

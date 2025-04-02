@@ -28,7 +28,9 @@
             <div class="sidebar">
                 <div class="profile">
                     <img src="../images/default-profile.png" alt="Profile Picture">
-                    <span class="username"><%= user.name %></span>
+                    <a href="/profile">
+                        <span class="username"><%= user.name %></span>
+                    </a>
                 </div>
 
                 <button class = "sidebar-button" id = "home-button"> Home </button>
@@ -41,7 +43,7 @@
 
                 <div class = "profilepost" id = "poster">
                     <img src="../images/default-profile.png" alt="Profile Picture">
-                    <span class="username"><%= post.username %></span>
+                    <a href="/profile/<%= post.userId %>"class="username"><%= post.username %></a>
                 </div>
 
                 <div class="post">
