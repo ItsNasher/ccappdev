@@ -43,11 +43,22 @@ const LoginSchema  = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    bio: {
+        type: String,
+        default: "Nothing to see here.."
+    },
+    posts: [{ type: Number, ref: "posts"}],
+    comments: [{ type: Number, ref: "comments"}]
 });
 
 // schema for posts (no username and tags yet)
 const PostSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "users",
+        required: true 
+    },
     postId: {
         type: Number,
         required: true,
@@ -56,7 +67,6 @@ const PostSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique: true
     },
     title: { 
         type: String, 
@@ -91,7 +101,7 @@ const CommentSchema = new mongoose.Schema({
         type: Number,
         ref: 'posts',  //references to existing posts
         required: true
-    },   
+    },
     username: {
         type: String,
         required: true,

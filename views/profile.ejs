@@ -2,7 +2,7 @@
     <head>
         <title>Profile</title>
         <link rel = "icon" href = "../images/logo.png">
-        <link rel = "stylesheet" href = "profilestyles.css">
+        <link rel = "stylesheet" href = "/profilestyles.css">
     </head>
 
     <body>
@@ -32,46 +32,110 @@
             </div>
         
             <div class = "content">
-                <div class = "profile-header">
-
-                    <div class = "profile-picture">
-                        <img src="../images/default-profile.png">
+                <div class="profile-header">
+                    <div class="profile-picture">
+                        <img src="../images/default-profile.png" alt="Profile Picture">
                     </div>
-
                     <div>
-                        <div class = "username"> Username </div>
-                        <div class = "bio"> Insert bio here </div>
+                        <div class="username"><%= user.name %></div>
+                        <div class="bio"><%= user.bio %></div>
+                        <% if (user._id.toString() === req.session.user._id.toString()) { %>
+                            <button id="editProfileButton">Edit Profile</button>
+                        <% } %>
                     </div>
-
-                </div>  
+                </div>
 
                 <hr style = "border: 0; height: 1px; background: gray;">
 
                 <nav class = "mediatype">
                     <div class="mediatype-tabs">
-                        <div class="tab active">Posts</div>
-                        <div class="tab">Comments</div>
+                        <div class="tab active" data-tab="posts">Posts</div>
+                        <div class="tab" data-tab="comments">Comments</div>
                     </div>
                 </nav>
                 
-                <a href = "/post">
-                    <div class = "posts">
-                        <div class = "post-header">
-                            <div class = "tags">
-                                <span class = "tag">TAG1</span>
-                                <span class = "tag">TAG2</span>
-                            </div>
-                            <span class = "date">date posted</span>
-                        </div>
-                    
-                        <div class="post-content">
-                            <h3 class="post-title">title of post</h3>
-                            <p class="post-text">content</p>
-                        </div>
+                <div id="posts-section" class="tab-content active">
+                    <div class="feed">
+                        <% if (posts.length > 0) { %>
+                            <% posts.forEach(post => { %>
+                                <div class="post">
+                                    <div class="poster">
+                                        <img src="../images/default-profile.png" alt="Profile Picture" class="poster-pfp">
+                                        <a href="/profile/<%= post.userId %>" class="poster-username"><%= post.username %></a>
+                                    </div>
+                                    <div class="postcontent">
+                                        <div class="content-header">
+                                            <ul class="tags">
+                                                <% post.tags.forEach(tag => { 
+                                                    const matchedTag = fetchedTags.find(t => t.name === tag); // Match tag by name
+                                                    const tagColor = matchedTag ? matchedTag.color : '#5271ff'; // Default color if not found
+                                                %>
+                                                    <li style="background-color: <%= tagColor %>;"><%= tag %></li>
+                                                <% }) %>
+                                            </ul>
+                                        </div>
+                                        <div class="below-header">
+                                            <h2 class="post-title"><%= post.title %></h2> 
+                                            <div class="date-posted"><%= post.date_posted.toDateString() %></div>
+                                        </div>
+                                        <a href="/post/<%= Number(post.postId) %>">
+                                            <div class="post-body">
+                                                <% if (post.content_type === "text") { %>
+                                                    <p><%= post.content %></p>
+                                                <% } else if (post.content_type === "image") { %>
+                                                    <img src="/uploads/<%= post.content %>" alt="Post Image">
+                                                <% } else if (post.content_type === "video") { %>
+                                                    <iframe width="560" height="315" src="<%= post.content %>" frameborder="0" allowfullscreen></iframe>
+                                                <% } else if (post.content_type === "link") { %>
+                                                    <a href="<%= post.content %>" target="_blank"><%= post.content %></a>
+                                                <% } %>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-separator"></div>
+                            <% }) %>
+                        <% } else { %>
+                            <p>No posts available</p>
+                        <% } %>
                     </div>
-                </a>
+                </div>
+
+                <div id="comments-section" class="tab-content">
+                    <div class="comment_section">
+                        <% if (comments.length === 0) { %>
+                            <p>No comments yet.</p>
+                        <% } else { %>
+                            <% comments.forEach(comment => { %>
+                                <div class="comment">
+                                    <div class="commenter">
+                                        <img src="../images/default-profile.png" alt="Profile Picture">
+                                        <div class="commenter"><%= comment.username %></div>
+                                    </div>
+                                    <div class="comment-text"><%= comment.text %></div>
+                                    <div class="comment-date"><%= comment.date_posted.toDateString() %></div>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
-        <script src="links.js"></script>
+
+        <div id="editProfileModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Profile</h2>
+                <form id="editProfileForm">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= user.name %>" required>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio"><%= user.bio %></textarea>
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+        <script src="/profile.js"></script>
     </body>
 </html>
