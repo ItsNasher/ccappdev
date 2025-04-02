@@ -53,6 +53,11 @@ const PostSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
     title: { 
         type: String, 
         required: true 
@@ -81,11 +86,11 @@ const CommentSchema = new mongoose.Schema({
         type: Number,
         ref: 'posts',  //references to existing posts
         required: true
-    },
+    },   
     username: {
         type: String,
         required: true,
-        default: "RandomUsername"
+        default: "Username"
     },
     text: {
         type: String,
@@ -96,7 +101,6 @@ const CommentSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
 
 //collection port
 const collection = new mongoose.model("users", LoginSchema);

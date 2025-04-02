@@ -28,7 +28,7 @@
             <div class="sidebar">
                 <div class="profile">
                     <img src="../images/default-profile.png" alt="Profile Picture">
-                    <span class="username">Username</span>
+                    <span class="username"><%= user.name %></span>
                 </div>
 
                 <button class = "sidebar-button" id = "home-button"> Home </button>
@@ -41,7 +41,7 @@
 
                 <div class = "profilepost" id = "poster">
                     <img src="../images/default-profile.png" alt="Profile Picture">
-                    <span class="username">Poster</span>
+                    <span class="username"><%= post.username %></span>
                 </div>
 
                 <div class="post">
@@ -51,7 +51,7 @@
                                 const matchingTag = fetchedTags.find(t => t.name === tag);
                                 const tagColor = matchingTag ? matchingTag.color : "#5271ff"; // Default color if not found
                             %>
-                                <li style="background-color: <%= tagColor %>;"><%= tag %></li> 
+                                <li style="background-color: <%= tagColor %>"><%= tag %></li> 
                             <% }) %>
                         </ul>
                     </div>
@@ -94,7 +94,13 @@
                         <% }); %>
                     <% } %>
                 </div>
-                
+
+                <form action="/createcomment" method="POST" class="comment-form">
+                    <input type="hidden" name="postId" value="<%= post.postId %>">
+                    <input type="hidden" name="username" value="<%= user.name %>">
+                    <textarea name="text" placeholder="Write a comment..." required></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
 
             </div>
         </div>

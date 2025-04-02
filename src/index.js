@@ -79,6 +79,7 @@ app.get("/createpost", async (req, res) => {
     }
 });
 
+//render post
 app.get("/post/:postId", async (req, res) => {
     try {
         const postId = req.params.postId;
@@ -94,7 +95,7 @@ app.get("/post/:postId", async (req, res) => {
 
         const fetchedTags = await tag.find({}, "name color");
 
-        res.render("post", { post, comments, fetchedTags }); 
+        res.render("post", { post, comments, fetchedTags, user: req.session.user || { name: "Guest" } }); 
 
     } catch (error) {
         console.error(error);
@@ -289,8 +290,27 @@ app.post("/createpost", upload.single("file"), async (req, res) => {
     }
 });
 
-
 //create comment 
+app.post("/createcomment", async (req, res) => {
+    try {
+        const { postId, username, text } = req.body; 
+
+        const newComment = new commentcollection({
+            postId,
+            username,
+            text,
+            date_posted: new Date()
+        });
+
+        await newComment.save();
+        res.json({ success: "Comment created!" });
+    } 
+    
+    catch (err) {
+        console.error(err);
+        res.json({ error: "Something went wrong. Try again!" });
+    }
+});
 
 const port = 3000;
 app.listen(port, () => {

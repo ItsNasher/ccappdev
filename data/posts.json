@@ -1,6 +1,7 @@
 [
   {
     "postId": 1,
+    "username": "user1",
     "title": "test1",
     "content_type": "text",
     "content": "content1",
@@ -9,6 +10,7 @@
   },
   {
     "postId": 2,
+    "username": "user2",
     "title": "test2",
     "content_type": "text",
     "content": "test2",
@@ -17,6 +19,7 @@
   },
   {
     "postId": 3,
+    "username": "user3",
     "title": "Whats a great way to study?",
     "content_type": "text",
     "content": "having problems studying ... just want to ask how you guys study",
@@ -25,6 +28,7 @@
   },
   {
     "postId": 4,
+    "username": "user4",
     "title": "Favorite movies?",
     "content_type": "text",
     "content": "wanted to binge watch movies so I'm asking here.",
@@ -32,7 +36,8 @@
     "__v": 0
   },
   {
-    "postId": 5,
+    "postID": 5,
+    "username": "user5",
     "title": "favorite subject?",
     "content_type": "text",
     "content": "I personally like math, how about you guys?",
