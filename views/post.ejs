@@ -83,13 +83,19 @@
                         <p>No comments yet.</p>
                     <% } else { %>
                         <% comments.forEach(comment => { %>
-                            <div class="comment">
+                            <div class="comment" id="comment-<%= comment.commentId %>">
                                 <div class="commenter">
                                     <img src="../images/default-profile.png" alt="Profile Picture">
                                     <div class="commenter"><%= comment.username %></div>
                                 </div>
-                                <div class="comment-text"><%= comment.text %></div>
+                                <div class="comment-text" id="comment-text-<%= comment.commentId %>"><%= comment.text %></div>
                                 <div class="comment-date"><%= comment.date_posted.toDateString() %></div>
+                                <% if (user.name === comment.username) { %>
+                                    <div class="comment-actions">
+                                        <button class="editComment" comment-id="<%= comment.commentId %>">Edit</button>
+                                        <button class="deleteComment" comment-id="<%= comment.commentId %>">Delete</button>
+                                    </div>
+                                <% } %>
                             </div>
                         <% }); %>
                     <% } %>
@@ -104,5 +110,6 @@
 
             </div>
         </div>
+        <script src="/comments.js"></script>
     </body>
 </html>

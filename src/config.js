@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb://localhost:27017/LogInPage");
+const connect = mongoose.connect("mongodb+srv://yosh:DLSU1234!@loginpage.w8oya.mongodb.net/");
 const Tag = require("./tag");
 
 // creates preset tags
@@ -82,6 +82,11 @@ const PostSchema = new mongoose.Schema({
 
 //schema for comments (no user)
 const CommentSchema = new mongoose.Schema({
+    commentId: {
+        type: Number,
+        required: true,
+        unique: true
+    },  
     postId: {
         type: Number,
         ref: 'posts',  //references to existing posts

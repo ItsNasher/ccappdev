@@ -1,65 +1,78 @@
 [
   {
+    "commentId": 1,
     "postId": 1,
     "text": "Comment3",
     "username": "Username3"
   },
   {
+    "commentId": 2,
     "postId": 2,
     "text": "Comment2",
     "username": "username2"
   },
   {
+    "commentId": 3,
     "postId": 1,
     "text": "Comment1",
     "username": "Username1"
   },
   {
+    "commentId": 4,
     "postId": 1,
     "text": "Comment2",
     "username": "Username2"
   },
   {
+    "commentId": 5,
     "postId": 1,
     "text": "Comment4",
     "username": "Username4"
   },
   {
+    "commentId": 6,
     "postId": 1,
     "text": "Comment5",
     "username": "Username5"
   },
   {
+    "commentId": 7,
     "postId": 2,
     "text": "Comment1",
     "username": "username1"
   },
   {
+    "commentId": 8,
     "postId": 2,
     "text": "Comment3",
     "username": "username3"
   },
   {
+    "commentId": 9,
     "postId": 2,
     "text": "Comment4",
     "username": "username4"
   },
   {
+    "commentId": 10,
     "postId": 2,
     "text": "Comment5",
     "username": "username5"
   },
   {
+    "commentId": 11,
     "postId": 3,
     "text": "Just study idk",
     "username": "Student1"
   },
   {
+    "commentId": 12,
     "postId": 4,
     "text": "Any Harry Potter movie ngl",
     "username": "HarryPotterFan"
   },
   {
+    "commentId": 13,
     "postId": 5,
     "text": "Math on top!",
     "username": "Math_ON_TOP"

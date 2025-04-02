@@ -302,7 +302,11 @@ app.post("/createcomment", async (req, res) => {
     try {
         const { postId, username, text } = req.body; 
 
+        const lastComment = await commentcollection.findOne().sort({ commentId: -1 });
+        const newCommentId = lastComment ? Number(lastComment.commentId) + 1 : 1;
+
         const newComment = new commentcollection({
+            commentId: newCommentId,
             postId,
             username,
             text,
@@ -316,6 +320,64 @@ app.post("/createcomment", async (req, res) => {
     catch (err) {
         console.error(err);
         res.json({ error: "Something went wrong. Try again!" });
+    }
+});
+
+//edit comment
+app.post("/editcomment", async (req, res) => {
+    try {
+        const { commentId, newText } = req.body;
+        const username = req.session.user.name;
+
+        const comment = await commentcollection.findOne({ commentId: Number(commentId) });
+
+        if (!comment) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+
+        if (comment.username !== username) {
+            return res.status(403).json({ error: "You can only edit your own comments" });
+        }
+
+        if (!newText || newText.trim() === "") {
+            return res.status(400).json({ error: "Comment text cannot be empty" });
+        }
+
+        const updatedComment = await commentcollection.findOneAndUpdate(
+            { commentId: Number(commentId) },
+            { text: newText, date_posted: new Date() },
+            { new: true }
+        );
+
+        res.json({ success: "Comment updated successfully", comment: updatedComment });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to update comment" });
+    }
+});
+
+//delete comment 
+app.post("/deletecomment", async (req, res) => {
+    try {
+        const { commentId } = req.body;
+        const username = req.session.user.name;
+
+        const comment = await commentcollection.findOne({ commentId: Number(commentId) });
+
+        if (!comment) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+
+        if (comment.username !== username) {
+            return res.status(403).json({ error: "You can only delete your own comments" });
+        }
+
+        await commentcollection.findOneAndDelete({ commentId: Number(commentId) });
+
+        res.json({ success: "Comment deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to delete comment" });
     }
 });
 
