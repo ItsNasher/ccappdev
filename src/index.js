@@ -55,7 +55,7 @@ app.get("/register", (req, res) => {
 
 app.get("/home", async (req, res) => { // the feed of the forum
     try {
-        const posts = await postcollection.find().sort({ postId: 1 });
+        const posts = await postcollection.find().sort({ postId: -1 });
         const fetchedTags = await tag.find({}, "name color");
         res.render("home", { posts, fetchedTags, user: req.session.user || { name: "Guest" } }); 
     } catch (error) {
@@ -517,6 +517,32 @@ app.post("/deletecomment", async (req, res) => {
     catch (err) {
         console.error(err);
         res.status(500).json({ error: "Failed to delete comment" });
+    }
+});
+
+//update profile
+app.post("/updateProfile", async (req, res) => {
+    try {
+        const { username, bio } = req.body;
+
+        if (!req.session.user) {
+            return res.json({ error: "User not logged in!" });
+        }
+
+        const userId = req.session.user._id;
+
+        await collection.updateOne(
+            { _id: userId },
+            { $set: { name: username, bio } }
+        );
+
+        req.session.user.name = username;
+        req.session.user.bio = bio;
+
+        res.json({ success: "Profile updated successfully!" });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: "Failed to update profile!" });
     }
 });
 

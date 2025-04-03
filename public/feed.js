@@ -102,3 +102,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+//search bar
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("searchbar");
+    const postsContainer = document.querySelector(".feed");
+    const posts = Array.from(postsContainer.querySelectorAll(".post"));
+    const separators = Array.from(postsContainer.querySelectorAll(".post-separator")); 
+
+    function filterPosts() {
+        const searchTerm = searchInput.value.toLowerCase(); 
+        console.log(`Search term: ${searchTerm}`);
+
+        posts.forEach((post, index) => {
+            const postTitle = post.querySelector(".post-title").textContent.toLowerCase(); 
+            console.log(`Post title: ${postTitle}`);
+            if (postTitle.includes(searchTerm)) {
+                post.style.display = ""; 
+                separators[index].style.display = ""; 
+            } else {
+                post.style.display = "none";
+                separators[index].style.display = "none"; 
+            }
+        });
+    }
+
+    searchInput.addEventListener("input", filterPosts);
+    searchInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            filterPosts(); 
+        }
+    });
+});

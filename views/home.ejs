@@ -5,15 +5,15 @@
         <link rel="icon" href="../images/logo.png">
     </head>
     <body>
-        <link rel="stylesheet" href="feedstyles.css">
+        <link rel="stylesheet" href="/feedstyles.css">
         <nav class="header">
             <div class="logo">
-                <a href="/">
+                <a href="#">
                     <img src="../images/logo.png">
                 </a>
             </div>
             <div class="searchbar">
-                <input placeholder="Search..." type="search" class="input">
+                <input placeholder="Search..." type="search" class="input" id="searchbar">
             </div>
             <ul class="headerlinks">
                 <li class="links"><a href="/createpost">Create Post</a></li>
@@ -47,7 +47,7 @@
             <div class="feed">
                 <% if (posts.length > 0) { %>
                     <% posts.forEach(post => { %>
-                        <div class="post">
+                        <div class="post" data-post-id="<%= post.postId %>">
                             <div class="poster">
                                 <img src="../images/default-profile.png" alt="Profile Picture" class="poster-pfp">
                                 <a href="/profile/<%= post.userId %>" class="poster-username"><%= post.username %></a>
@@ -98,6 +98,6 @@
                 </div>
             </div>
         </div>
-        <script src="feed.js"></script>
+        <script src="/feed.js"></script>
     </body>
 </html>
