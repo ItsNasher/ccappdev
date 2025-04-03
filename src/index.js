@@ -439,16 +439,28 @@ app.post("/createcomment", async (req, res) => {
     try {
         const { postId, username, text } = req.body; 
 
+        if (!req.session.user) {
+                    return res.json({ error: "User not logged in!" });
+        }
+
         const lastComment = await commentcollection.findOne().sort({ commentId: -1 });
         const newCommentId = lastComment ? Number(lastComment.commentId) + 1 : 1;
+
+        const userId = req.session.user._id;
 
         const newComment = new commentcollection({
             commentId: newCommentId,
             postId,
             username,
+            userId,
             text,
             date_posted: new Date()
         });
+
+        await collection.updateOne(
+            { _id: userId },
+            { $push: { comments: newCommentId } }
+        );
 
         await newComment.save();
         res.json({ success: "Comment created!" });
